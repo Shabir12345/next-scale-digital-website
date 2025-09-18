@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Next Scale Digital</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            color: #1F2937;
+        }
+        .hero-bg {
+            background: linear-gradient(135deg, #1E40AF 0%, #3B82F6 100%);
+            position: relative;
+        }
+        .hero-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239CA3AF' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.1;
+            z-index: 0;
+        }
+        .gradient-text {
+            background: linear-gradient(90deg, #F97316 0%, #F59E0B 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .bg-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-white bg-opacity-80 backdrop-filter backdrop-blur-lg shadow-sm">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <!-- Logo -->
+                <a href="#" class="flex items-center space-x-2 font-bold text-xl text-gray-900">
+                    <div class="w-12 h-12">
+                        <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M50 150 L150 150 L180 120 L180 80 L150 50 L50 50 L20 80 L20 120 Z" stroke="url(#paint0_linear)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="rgba(0, 123, 255, 0.1)"/>
+                            <path d="M100 50 V150 M50 100 H150" stroke="#00c853" stroke-width="4" stroke-linecap="round"/>
+                            <circle cx="100" cy="100" r="15" fill="#00c853"/>
+                            <circle cx="50" cy="100" r="5" fill="#00c853"/>
+                            <circle cx="150" cy="100" r="5" fill="#00c853"/>
+                            <circle cx="100" cy="50" r="5" fill="#00c853"/>
+                            <circle cx="100" cy="150" r="5" fill="#00c853"/>
+                            <defs>
+                                <linearGradient id="paint0_linear" x1="20" y1="100" x2="180" y2="100" gradientUnits="userSpaceOnUse">
+                                    <stop stop-color="#007bff"/>
+                                    <stop offset="1" stop-color="#00c853"/>
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </div>
+                    <span>Next Scale Digital</span>
+                </a>
+            </div>
+            <div class="hidden md:flex items-center space-x-8 text-sm font-medium">
+                <a href="#services" class="text-gray-600 hover:text-blue-600 transition duration-300">Services</a>
+                <a href="#results" class="text-gray-600 hover:text-blue-600 transition duration-300">Results</a>
+                <a href="#testimonials" class="text-gray-600 hover:text-blue-600 transition duration-300">Testimonials</a>
+                <a href="#contact" class="text-gray-600 hover:text-blue-600 transition duration-300">Contact</a>
+            </div>
+            <a href="#contact" class="hidden md:block bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-full transition duration-300 transform hover:scale-105 shadow-lg">Book Consultation</a>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Homepage - Hero Section -->
+        <section class="hero-bg text-white py-24 md:py-32 relative overflow-hidden">
+            <div class="container mx-auto px-6 relative z-10 text-center">
+                <div class="w-60 h-60 mx-auto mb-8">
+                    <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M50 150 L150 150 L180 120 L180 80 L150 50 L50 50 L20 80 L20 120 Z" stroke="url(#paint0_linear)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="rgba(0, 123, 255, 0.1)"/>
+                        <path d="M100 50 V150 M50 100 H150" stroke="#00c853" stroke-width="4" stroke-linecap="round"/>
+                        <circle cx="100" cy="100" r="15" fill="#00c853"/>
+                        <circle cx="50" cy="100" r="5" fill="#00c853"/>
+                        <circle cx="150" cy="100" r="5" fill="#00c853"/>
+                        <circle cx="100" cy="50" r="5" fill="#00c853"/>
+                        <circle cx="100" cy="150" r="5" fill="#00c853"/>
+                        <defs>
+                            <linearGradient id="paint0_linear" x1="20" y1="100" x2="180" y2="100" gradientUnits="userSpaceOnUse">
+                                <stop stop-color="#007bff"/>
+                                <stop offset="1" stop-color="#00c853"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+                <h1 class="text-4xl md:text-6xl font-extrabold leading-tight tracking-tight mb-4">
+                    Transform Your Business with <span class="gradient-text">AI Solutions</span>
+                    That Drive Revenue
+                </h1>
+                <p class="text-lg md:text-xl font-medium max-w-3xl mx-auto mb-8">
+                    We help businesses implement AI systems that increase profits, reduce costs, and save hours of manual work every day.
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+                    <a href="#contact" class="bg-white text-blue-600 font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 transform hover:scale-105">
+                        Book Free AI Consultation
+                    </a>
+                    <a href="#results" class="bg-transparent border border-white text-white font-medium py-3 px-8 rounded-full transition duration-300 transform hover:bg-white hover:text-blue-600">
+                        See ROI Results
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Value Proposition Section -->
+        <section class="py-16 md:py-24 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="grid md:grid-cols-3 gap-8 text-center">
+                    <div class="flex flex-col items-center p-6 rounded-xl shadow-lg transform transition duration-300 hover:scale-105">
+                        <div class="mb-4 text-blue-600">
+                            <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c-1.11 0-2.453-.332-3.328-.853A4.999 4.999 0 0112 11c1.88 0 3.328.853 3.328 2s-1.448 2-3.328 2m0-8c-1.657 0-3-.895-3-2s1.343-2 3-2 3-.895 3-2-1.343-2-3-2m0 8s1.343-2 3-2-3-2-3-2m0 8s-1.343 2-3 2 3 2 3 2m0 0a6 6 0 00-6-6m6 6a6 6 0 01-6-6m0 0a6 6 0 006-6m-6 6a6 6 0 016-6"></path></svg>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Increase Revenue</h3>
+                        <p class="text-gray-600">AI systems that generate more sales, optimize pricing, and identify new opportunities.</p>
+                    </div>
+                    <div class="flex flex-col items-center p-6 rounded-xl shadow-lg transform transition duration-300 hover:scale-105">
+                        <div class="mb-4 text-blue-600">
+                            <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m-6 0v-4l-3-3m0 0a6 6 0 006-6v0a6 6 0 00-6 6v0zm6 6a6 6 0 01-6 6v0a6 6 0 016-6v0zm0 0a6 6 0 006-6v0a6 6 0 00-6 6v0zm-6-6a6 6 0 016-6v0a6 6 0 01-6 6v0a6 6 0 016 6v0a6 6 0 006 6v0"></path></svg>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Save Time</h3>
+                        <p class="text-gray-600">Automate repetitive tasks, streamline workflows, and free up your team for strategic work.</p>
+                    </div>
+                    <div class="flex flex-col items-center p-6 rounded-xl shadow-lg transform transition duration-300 hover:scale-105">
+                        <div class="mb-4 text-blue-600">
+                            <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 14l6-6m-6 6l-6-6m6 6l6-6m-6-6l-6 6m6 6l6-6m-6-6l-6 6"></path></svg>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Reduce Costs</h3>
+                        <p class="text-gray-600">Eliminate inefficiencies, reduce manual errors, and optimize operational spending.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Social Proof Bar -->
+        <section class="py-8 bg-gray-200">
+            <div class="container mx-auto px-6 text-center text-gray-700 font-medium">
+                Helping 50+ businesses save 20+ hours per week with AI
+                <div class="flex justify-center items-center mt-4 space-x-8 flex-wrap">
+                    <img src="https://placehold.co/150x50/ffffff/000000?text=Toyota" alt="Toyota logo" class="h-10 opacity-70 mb-4 md:mb-0">
+                    <img src="https://placehold.co/150x50/ffffff/000000?text=Pioneer+Consulting" alt="Pioneer Consulting logo" class="h-10 opacity-70 mb-4 md:mb-0">
+                    <img src="https://placehold.co/150x50/ffffff/000000?text=Dental+Group" alt="Dental Group logo" class="h-10 opacity-70 mb-4 md:mb-0">
+                    <img src="https://placehold.co/150x50/ffffff/000000?text=Accounting+Firm" alt="Accounting Firm logo" class="h-10 opacity-70 mb-4 md:mb-0">
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="services" class="py-16 md:py-24 bg-gray-50">
+            <div class="container mx-auto px-6">
+                <h2 class="text-3xl md:text-4xl font-extrabold text-center mb-12">Our AI Solutions</h2>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <!-- Service Card 1 -->
+                    <div class="bg-white p-8 rounded-2xl shadow-xl transform transition duration-300 hover:scale-105 flex flex-col items-center text-center">
+                        <div class="mb-6 w-16 h-16 rounded-full bg-blue-100 flex items-center justify-center">
+                            <svg class="w-10 h-10 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M3 14h18m-9-4v8m-7 0a2 2 0 11-4 0m4 0a2 2 0 10-4 0m14 0a2 2 0 11-4 0m4 0a2 2 0 10-4 0"></path></svg>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4">AI Voice & Chat Agents</h3>
+                        <p class="text-gray-600 mb-6 flex-grow">
+                            Deploy AI-powered voice and chat agents to automate inbound/outbound calls, qualify leads, and provide 24/7 customer support.
+                        </p>
+                        <ul class="text-sm text-gray-500 list-disc list-inside text-left w-full mb-6">
+                            <li>Lead qualification and appointment setting</li>
+                            <li>24/7 customer support and inquiry handling</li>
+                            <li>Automated data entry and CRM updates</li>
+                        </ul>
+                        <p class="font-bold text-blue-600 mb-2">Expected ROI: 200%+ <br> Time Saved: 15+ hours/week</p>
+                        <a href="#contact" class="mt-auto bg-blue-600 text-white font-medium py-2 px-6 rounded-full hover:bg-blue-700 transition duration-300">
+                            Book Consultation
+                        </a>
+                    </div>
+                    <!-- Service Card 2 -->
+                    <div class="bg-white p-8 rounded-2xl shadow-xl transform transition duration-300 hover:scale-105 flex flex-col items-center text-center">
+                        <div class="mb-6 w-16 h-16 rounded-full bg-blue-100 flex items-center justify-center">
+                            <svg class="w-10 h-10 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18.5a6 6 0 00-6-6v0a6 6 0 00-6-6v0a6 6 0 006 6v0a6 6 0 006-6v0a6 6 0 016-6v0a6 6 0 016 6v0a6 6 0 01-6 6v0a6 6 0 00-6 6v0a6 6 0 00-6-6v0a6 6 0 01-6-6v0a6 6 0 016-6v0a6 6 0 016 6v0a6 6 0 006 6v0"></path></svg>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4">AI Social Media Management</h3>
+                        <p class="text-gray-600 mb-6 flex-grow">
+                            Automate content creation, scheduling, and engagement to build a stronger brand presence and drive traffic.
+                        </p>
+                        <ul class="text-sm text-gray-500 list-disc list-inside text-left w-full mb-6">
+                            <li>AI-powered content creation and scheduling</li>
+                            <li>Automated posting across all platforms</li>
+                            <li>AI-driven engagement and response management</li>
+                        </ul>
+                        <p class="font-bold text-blue-600 mb-2">Expected ROI: 150%+ <br> Time Saved: 10+ hours/week</p>
+                        <a href="#contact" class="mt-auto bg-blue-600 text-white font-medium py-2 px-6 rounded-full hover:bg-blue-700 transition duration-300">
+                            Book Consultation
+                        </a>
+                    </div>
+                    <!-- Service Card 3 -->
+                    <div class="bg-white p-8 rounded-2xl shadow-xl transform transition duration-300 hover:scale-105 flex flex-col items-center text-center">
+                        <div class="mb-6 w-16 h-16 rounded-full bg-blue-100 flex items-center justify-center">
+                            <svg class="w-10 h-10 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20v-4h-2v4h-4v-4m4 4v-4m0 4h-4m4 4h4m-4 4v-4m0 4h4m0-4v-4m0 4h-4m-4-4h4m4-4h-4m-4 4h4m-4-4h4m4-4h4m-4 4h4m-4-4h4m-4 4h4"></path></svg>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4">Custom AI Solutions</h3>
+                        <p class="text-gray-600 mb-6 flex-grow">
+                            We design and build bespoke AI systems tailored to your unique business needs, from workflow automation to data processing.
+                        </p>
+                        <ul class="text-sm text-gray-500 list-disc list-inside text-left w-full mb-6">
+                            <li>Workflow optimization and process automation</li>
+                            <li>AI-powered decision-making systems</li>
+                            <li>Custom tool development for specific needs</li>
+                        </ul>
+                        <p class="font-bold text-blue-600 mb-2">Expected ROI: Varies <br> Time Saved: Varies</p>
+                        <a href="#contact" class="mt-auto bg-blue-600 text-white font-medium py-2 px-6 rounded-full hover:bg-blue-700 transition duration-300">
+                            Book Consultation
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Results & Case Studies Section -->
+        <section id="results" class="py-16 md:py-24 bg-white">
+            <div class="container mx-auto px-6">
+                <h2 class="text-3xl md:text-4xl font-extrabold text-center mb-12">How Our Services Drive Results</h2>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <!-- Service Result 1 -->
+                    <div class="bg-white p-8 rounded-2xl shadow-xl border-l-4 border-blue-600">
+                        <h3 class="text-xl font-bold mt-2 mb-4">AI Voice & Chat Agents</h3>
+                        <p class="text-gray-600 mb-4">
+                            Our AI agents are designed to handle repetitive tasks like inbound inquiries, outbound calls, and lead qualification, freeing up your team to focus on high-value, strategic work.
+                        </p>
+                        <ul class="space-y-2 mb-4">
+                            <li class="flex items-center text-green-600 font-medium">
+                                <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                                24/7 customer support and inquiry handling
+                            </li>
+                            <li class="flex items-center text-green-600 font-medium">
+                                <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/200/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                                Automates data entry and CRM updates
+                            </li>
+                        </ul>
+                        <p class="font-bold text-sm text-blue-600 mt-4">Expected ROI: 200%+ <br> Time Saved: 15+ hours/week</p>
+                    </div>
+                    <!-- Service Result 2 -->
+                    <div class="bg-white p-8 rounded-2xl shadow-xl border-l-4 border-blue-600">
+                        <h3 class="text-xl font-bold mt-2 mb-4">AI-Powered Social Media Management</h3>
+                        <p class="text-gray-600 mb-4">
+                            We use AI to automate your content creation, scheduling, and community engagement, allowing you to grow your brand presence and engage with your audience more effectively.
+                        </p>
+                        <ul class="space-y-2 mb-4">
+                            <li class="flex items-center text-green-600 font-medium">
+                                <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/200/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                                Automated posting across all platforms
+                            </li>
+                            <li class="flex items-center text-green-600 font-medium">
+                                <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/200/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                                AI-driven engagement and response management
+                            </li>
+                        </ul>
+                        <p class="font-bold text-sm text-blue-600 mt-4">Expected ROI: 150%+ <br> Time Saved: 10+ hours/week</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section id="testimonials" class="py-16 md:py-24 bg-gray-50">
+            <div class="container mx-auto px-6">
+                <h2 class="text-3xl md:text-4xl font-extrabold text-center mb-12">Client Testimonials</h2>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <!-- Testimonial 1 -->
+                    <div class="bg-white p-8 rounded-2xl shadow-xl flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center space-x-1 text-yellow-400 mb-4">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.62-.921 1.902 0l1.07 3.292a1 1 0 00.95.696h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.725c-.783-.57-.38-1.81.588-1.81h3.462a1 1 0 00.95-.696l1.07-3.292z"></path></svg>
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.62-.921 1.902 0l1.07 3.292a1 1 0 00.95.696h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.725c-.783-.57-.38-1.81.588-1.81h3.462a1 1 0 00.95-.696l1.07-3.292z"></path></svg>
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.62-.921 1.902 0l1.07 3.292a1 1 0 00.95.696h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.725c-.783-.57-.38-1.81.588-1.81h3.462a1 1 0 00.95-.696l1.07-3.292z"></path></svg>
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.62-.921 1.902 0l1.07 3.292a1 1 0 00.95.696h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.725c-.783-.57-.38-1.81.588-1.81h3.462a1 1 0 00.95-.696l1.07-3.292z"></path></svg>
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.62-.921 1.902 0l1.07 3.292a1 1 0 00.95.696h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.725c-.783-.57-.38-1.81.588-1.81h3.462a1 1 0 00.95-.696l1.07-3.292z"></path></svg>
+                            </div>
+                            <blockquote class="text-xl italic text-gray-700">
+                                "Our AI Voice & Chat Agents handle all of our incoming customer support calls. This has freed up our team to focus on sales and lead generation. It's truly a game-changer for our business."
+                            </blockquote>
+                        </div>
+                        <div class="mt-4 text-gray-900 font-bold">
+                            - John P., <span class="text-gray-600 font-normal">Sales Director, Technology Firm</span>
+                        </div>
+                    </div>
+                    <!-- Testimonial 2 -->
+                    <div class="bg-white p-8 rounded-2xl shadow-xl flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center space-x-1 text-yellow-400 mb-4">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.62-.921 1.902 0l1.07 3.292a1 1 0 00.95.696h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.725c-.783-.57-.38-1.81.588-1.81h3.462a1 1 0 00.95-.696l1.07-3.292z"></path></svg>
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.62-.921 1.902 0l1.07 3.292a1 1 0 00.95.696h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.725c-.783-.57-.38-1.81.588-1.81h3.462a1 1 0 00.95-.696l1.07-3.292z"></path></svg>
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.62-.921 1.902 0l1.07 3.292a1 1 0 00.95.696h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.725c-.783-.57-.38-1.81.588-1.81h3.462a1 1 0 00.95-.696l1.07-3.292z"></path></svg>
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.62-.921 1.902 0l1.07 3.292a1 1 0 00.95.696h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.725c-.783-.57-.38-1.81.588-1.81h3.462a1 1 0 00.95-.696l1.07-3.292z"></path></svg>
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.62-.921 1.902 0l1.07 3.292a1 1 0 00.95.696h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.725c-.783-.57-.38-1.81.588-1.81h3.462a1 1 0 00.95-.696l1.07-3.292z"></path></svg>
+                            </div>
+                            <blockquote class="text-xl italic text-gray-700">
+                                "The AI Social Media Management system they built has saved us countless hours. It automates content creation and scheduling, allowing us to focus on building real connections with our audience."
+                            </blockquote>
+                        </div>
+                        <div class="mt-4 text-gray-900 font-bold">
+                            - Rachel C., <span class="text-gray-600 font-normal">Marketing Manager, Digital Agency</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="py-16 md:py-24 bg-white">
+            <div class="container mx-auto px-6">
+                <h2 class="text-3xl md:text-4xl font-extrabold text-center mb-12">About Us</h2>
+                <div class="max-w-4xl mx-auto text-center text-gray-600 space-y-4">
+                    <p>
+                        Our mission at Next Scale Digital is to empower businesses with the transformative power of artificial intelligence. We believe that AI should be a tool for everyone, not just a select few. By focusing on practical, ROI-driven solutions, we help our clients increase their revenue, reduce operational costs, and reclaim valuable time.
+                    </p>
+                    <p>
+                        Our team has over 20 years of combined experience in AI implementation, business optimization, and software development. We pride ourselves on being ROI-focused, innovative, and committed to your success.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact & Booking Section -->
+        <section id="contact" class="py-16 md:py-24 bg-gray-50">
+            <div class="container mx-auto px-6">
+                <h2 class="text-3xl md:text-4xl font-extrabold text-center mb-12">Book Your Free AI Consultation</h2>
+                <div class="max-w-xl mx-auto bg-white p-8 rounded-2xl shadow-xl">
+                    <form id="ai-consultation-form">
+                        <div class="mb-4">
+                            <label for="name" class="block text-gray-700 font-medium mb-2">Name</label>
+                            <input type="text" id="name" name="name" class="w-full px-4 py-2 border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-600" required>
+                        </div>
+                        <div class="mb-4">
+                            <label for="email" class="block text-gray-700 font-medium mb-2">Email</label>
+                            <input type="email" id="email" name="email" class="w-full px-4 py-2 border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-600" required>
+                        </div>
+                        <div class="mb-4">
+                            <label for="company" class="block text-gray-700 font-medium mb-2">Company Name</label>
+                            <input type="text" id="company" name="company" class="w-full px-4 py-2 border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-600">
+                        </div>
+                        <div class="mb-4">
+                            <label for="phone" class="block text-gray-700 font-medium mb-2">Phone Number</label>
+                            <input type="tel" id="phone" name="phone" class="w-full px-4 py-2 border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-600">
+                        </div>
+                        <div class="mb-6">
+                            <label for="task" class="block text-gray-700 font-medium mb-2">Biggest time-consuming task/process</label>
+                            <select id="task" name="task" class="w-full px-4 py-2 border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-600">
+                                <option>Customer support inquiries</option>
+                                <option>Manual data entry</option>
+                                <option>Social media management</option>
+                                <option>Sales lead qualification</option>
+                                <option>Inventory management</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                        
+                        <!-- AI Solution Brainstormer -->
+                        <div class="mb-6 bg-blue-50 p-6 rounded-2xl border-2 border-blue-200">
+                            <h3 class="text-xl font-bold mb-4 text-center text-blue-800">AI Solution Brainstormer</h3>
+                            <p class="text-sm text-gray-600 mb-4">
+                                Briefly describe your biggest business challenge below, and get an instant, AI-generated solution idea.
+                            </p>
+                            <textarea id="challenge" class="w-full px-4 py-2 border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-600" rows="3" placeholder="e.g., 'We spend too much time on client onboarding paperwork.'"></textarea>
+                            <button type="button" id="generate-button" class="mt-4 w-full bg-blue-600 text-white font-medium py-3 px-6 rounded-xl hover:bg-blue-700 transition duration-300 transform hover:scale-105">
+                                Generate Ideas
+                            </button>
+                            <div id="ai-response-area" class="mt-4 p-4 bg-white rounded-xl border border-gray-200 hidden">
+                                <h4 class="font-bold mb-2">Potential AI Solution:</h4>
+                                <div id="ai-response-text" class="text-sm text-gray-800"></div>
+                            </div>
+                            <div id="loading-spinner" class="mt-4 text-center hidden">
+                                <div class="w-8 h-8 rounded-full border-4 border-t-4 border-gray-200 border-t-blue-500 animate-spin mx-auto"></div>
+                                <p class="text-sm text-gray-500 mt-2">Generating ideas...</p>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="costs" class="block text-gray-700 font-medium mb-2">Current monthly operational costs</label>
+                            <input type="number" id="costs" name="costs" class="w-full px-4 py-2 border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-600">
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full transition duration-300 transform hover:scale-105 shadow-lg">
+                                Book My Free AI Consultation
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Footer -->
+        <footer class="bg-gray-800 text-gray-300 py-12">
+            <div class="container mx-auto px-6 text-center">
+                <div class="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-8 mb-6">
+                    <a href="mailto:hello@nextscaledigital.com" class="hover:text-white transition duration-300">hello@nextscaledigital.com</a>
+                    <p class="hidden md:block">|</p>
+                    <p>Business hours: Mon-Fri, 9 AM - 6 PM EST</p>
+                    <p class="hidden md:block">|</p>
+                    <p>Response time: within 24 hours</p>
+                </div>
+                <div class="text-sm text-gray-500 mt-6">
+                    <p>&copy; 2024 Next Scale Digital. All rights reserved.</p>
+                    <div class="mt-2 space-x-4">
+                        <a href="#" class="hover:text-white">Privacy Policy</a>
+                        <a href="#" class="hover:text-white">Terms of Service</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const generateButton = document.getElementById('generate-button');
+            const challengeTextarea = document.getElementById('challenge');
+            const aiResponseArea = document.getElementById('ai-response-area');
+            const aiResponseText = document.getElementById('ai-response-text');
+            const loadingSpinner = document.getElementById('loading-spinner');
+
+            generateButton.addEventListener('click', async () => {
+                const prompt = challengeTextarea.value;
+                if (!prompt) {
+                    aiResponseText.textContent = 'Please enter your challenge to get a solution.';
+                    aiResponseArea.classList.remove('hidden');
+                    return;
+                }
+
+                // Show loading state
+                aiResponseArea.classList.add('hidden');
+                loadingSpinner.classList.remove('hidden');
+
+                try {
+                    const systemPrompt = "You are an AI consultant for Next Scale Digital. Provide a concise, single-paragraph summary of a potential AI solution to a business challenge. Focus on automation, efficiency, and ROI. Do not use conversational language like 'Here is a solution.' or 'We can help with...'. Start directly with the solution.";
+                    const userQuery = `My business challenge is: "${prompt}". What is a potential AI solution?`;
+                    
+                    const payload = {
+                        contents: [{ parts: [{ text: userQuery }] }],
+                        systemInstruction: { parts: [{ text: systemPrompt }] },
+                        tools: [{ "google_search": {} }],
+                    };
+                    const apiKey = "";
+                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+
+                    let response = null;
+                    let retries = 0;
+                    const maxRetries = 3;
+                    const baseDelay = 1000;
+
+                    while (retries < maxRetries) {
+                        try {
+                            response = await fetch(apiUrl, {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify(payload)
+                            });
+                            if (response.status === 429) {
+                                const delay = baseDelay * Math.pow(2, retries);
+                                await new Promise(resolve => setTimeout(resolve, delay));
+                                retries++;
+                                continue;
+                            }
+                            if (!response.ok) {
+                                throw new Error(`API call failed with status: ${response.status}`);
+                            }
+                            break;
+                        } catch (error) {
+                            if (retries === maxRetries - 1) {
+                                throw error;
+                            }
+                            retries++;
+                        }
+                    }
+
+                    const result = await response.json();
+                    const aiSolution = result?.candidates?.[0]?.content?.parts?.[0]?.text;
+
+                    if (aiSolution) {
+                        aiResponseText.innerHTML = aiSolution.replace(/\n/g, '<br>');
+                        aiResponseArea.classList.remove('hidden');
+                    } else {
+                        aiResponseText.textContent = 'Sorry, I could not generate a solution. Please try again.';
+                        aiResponseArea.classList.remove('hidden');
+                    }
+
+                } catch (error) {
+                    console.error('API Error:', error);
+                    aiResponseText.textContent = 'Sorry, an error occurred while generating the solution. Please try again later.';
+                    aiResponseArea.classList.add('hidden');
+                } finally {
+                    loadingSpinner.classList.add('hidden');
+                }
+            });
+
+            // Contact Form Submission
+            const contactForm = document.getElementById('ai-consultation-form');
+            contactForm.addEventListener('submit', (event) => {
+                event.preventDefault();
+                alert('Thank you for your inquiry! We will be in touch within 24 hours.');
+                contactForm.reset();
+            });
+        });
+    </script>
+</body>
+</html>
