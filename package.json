@@ -7,7 +7,10 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "check": "astro check"
+    "check": "astro check",
+    "og": "node scripts/make-og.mjs",
+    "qa": "node scripts/qa.mjs",
+    "verify": "npm run og && npm run build && npm run qa"
   },
   "dependencies": {
     "astro": "^5.13.2",

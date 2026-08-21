@@ -51,7 +51,7 @@ export const services: Service[] = [
     h1: 'Local SEO for GTA service businesses',
     metaTitle: 'Local SEO Services in the GTA | Next Scale Digital',
     metaDescription:
-      'Local SEO for Toronto and York Region service businesses. We measure where you rank across your service area, fix the Google Business Profile, and report the calls it produces.',
+      'Local SEO for Toronto and York Region service businesses. We measure where you rank across your service area, fix the Business Profile, and report the calls.',
     summary:
       'Get into the three-result map pack for the searches that happen near your shop.',
     outcome: 'Map pack position, measured from every corner of your service area.',
@@ -61,9 +61,9 @@ export const services: Service[] = [
     nav: 'Websites',
     title: 'Website design and build',
     h1: 'Websites built to be found and to book work',
-    metaTitle: 'Website Design for Service Businesses in the GTA | Next Scale Digital',
+    metaTitle: 'Website Design for GTA Service Businesses | Next Scale Digital',
     metaDescription:
-      'Fast static websites for GTA trades and service businesses. Built for Google, with tracked phone numbers, service pages and schema wired in from the first build.',
+      'Fast static websites for GTA trades and service businesses. Tracked phone numbers, service pages and schema wired in from the first build.',
     summary:
       'A site that loads fast, says what you do, and puts the phone number where a driver can hit it.',
     outcome: 'A site Google can read and a customer can call from in one tap.',
@@ -75,7 +75,7 @@ export const services: Service[] = [
     h1: 'Google Ads with a break-even you can check',
     metaTitle: 'Google Ads Management in the GTA | Next Scale Digital',
     metaDescription:
-      'Google Ads management for GTA service businesses. Spend capped, conversions tracked to real calls, and a break-even close rate calculated from your own ticket size before launch.',
+      'Google Ads for GTA service businesses. Spend capped, conversions tracked to real calls, and a break-even close rate worked out before launch.',
     summary:
       'Paid search where the maths is done in front of you before a dollar is spent.',
     outcome: 'Cost per booked job, not cost per click.',

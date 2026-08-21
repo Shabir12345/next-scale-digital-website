@@ -27,6 +27,8 @@ jobs:
       - name: Generate social images
         run: node scripts/make-og.mjs
       - run: npm run build
+      - name: QA the build
+        run: npm run qa
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

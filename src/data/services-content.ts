@@ -36,7 +36,7 @@ export const serviceContent: Record<string, ServiceContent> = {
       {
         title: 'Google Business Profile build-out',
         detail:
-          'Primary and secondary categories, the full service list, service area, hours, attributes, description and photo cadence. This is the highest-leverage asset on a local account and it is usually half-finished.',
+          'Primary and secondary categories, the full service list, service area, hours, attributes, description and photo cadence. This moves local visibility more than anything else on the account, and it is usually half-finished.',
       },
       {
         title: 'Citation and NAP cleanup',

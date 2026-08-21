@@ -25,9 +25,9 @@ export const industries: Industry[] = [
     slug: 'roadside-assistance',
     nav: 'Roadside assistance & towing',
     h1: 'Marketing for roadside assistance and towing companies',
-    metaTitle: 'SEO & Marketing for Roadside Assistance and Towing | GTA | Next Scale Digital',
+    metaTitle: 'Marketing for Towing & Roadside Companies | Next Scale Digital',
     metaDescription:
-      'Local SEO, websites and Google Ads for GTA towing and roadside assistance companies. Built around emergency search: map pack position, tap-to-call, and answering the 2am call.',
+      'Local SEO, websites and Google Ads for GTA towing companies. Built around emergency search: map pack position, tap-to-call, and answering the 2am call.',
     summary:
       'Emergency search, decided in under a minute, almost entirely on a phone.',
     thesis:
@@ -94,7 +94,7 @@ export const industries: Industry[] = [
     h1: 'Marketing for auto body and collision repair shops',
     metaTitle: 'SEO & Google Ads for Auto Body Shops | GTA | Next Scale Digital',
     metaDescription:
-      'Local SEO, websites and Google Ads for GTA collision repair and auto body shops. Built around a high-ticket, insurance-driven decision that takes days, not minutes.',
+      'Local SEO, websites and Google Ads for GTA collision repair shops. Built around a high-ticket, insurance-driven decision that takes days, not minutes.',
     summary:
       'High ticket, insurance-mediated, and decided over days rather than seconds.',
     thesis:
@@ -152,7 +152,7 @@ export const industries: Industry[] = [
     h1: 'Marketing for tire shops and mobile tire services',
     metaTitle: 'SEO & Marketing for Tire Shops | GTA | Next Scale Digital',
     metaDescription:
-      'Local SEO, websites and Google Ads for GTA tire shops and mobile tire services. Built around a category with two sharp seasonal peaks and a demand curve you can plan against.',
+      'Local SEO, websites and Google Ads for GTA tire shops and mobile tire services. Built around a category with two sharp seasonal peaks you can plan against.',
     summary:
       'Two sharp peaks a year, and a demand curve you can see coming months ahead.',
     thesis:
@@ -208,9 +208,9 @@ export const industries: Industry[] = [
     slug: 'renovation-contractors',
     nav: 'Renovation & contracting',
     h1: 'Marketing for renovation and contracting businesses',
-    metaTitle: 'SEO & Web Design for Renovation Contractors | GTA | Next Scale Digital',
+    metaTitle: 'SEO for Renovation Contractors in the GTA | Next Scale Digital',
     metaDescription:
-      'Local SEO, websites and Google Ads for GTA renovation and contracting businesses. Built around a long, trust-led decision where the portfolio does most of the selling.',
+      'Local SEO, websites and Google Ads for GTA renovation contractors. Built around a long, trust-led decision where the portfolio does most of the selling.',
     summary:
       'Long consideration, high ticket, and the portfolio does most of the selling.',
     thesis:
