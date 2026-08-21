@@ -1,3 +1,5 @@
+import { pricing } from './pricing';
+
 /* Single source of truth for NAP, nav and service metadata.
    Anything that appears in more than one place lives here so schema, footer and
    page copy can never drift apart. */
@@ -98,13 +100,23 @@ export const services: Service[] = [
   },
 ];
 
-export const nav = [
+/* Pricing joins the nav only when src/data/pricing.ts has real figures and
+   `published: true`, so the nav can never link to a route that was not built. */
+const baseNav = [
   { href: '/services/', label: 'Services' },
   { href: '/industries/', label: 'Industries' },
   { href: '/work/', label: 'Work' },
   { href: '/insights/', label: 'Insights' },
   { href: '/about/', label: 'About' },
 ];
+
+export const nav = pricing.published
+  ? [
+      ...baseNav.slice(0, 2),
+      { href: '/pricing/', label: 'Pricing' },
+      ...baseNav.slice(2),
+    ]
+  : baseNav;
 
 /* Real engagements only. Every entry here is a client NSD has actually shipped for.
    Metrics are deliberately absent: client performance data is not ours to publish. */

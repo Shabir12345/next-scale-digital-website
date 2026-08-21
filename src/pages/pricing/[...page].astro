@@ -1,0 +1,211 @@
+---
+import Base from '../../layouts/Base.astro';
+import CTA from '../../components/CTA.astro';
+import FAQ from '../../components/FAQ.astro';
+import { site } from '../../data/site';
+import { pricing } from '../../data/pricing';
+import { faqSchema } from '../../lib/schema';
+
+/* The route is only generated once real figures are in src/data/pricing.ts and
+   `published` is flipped. Until then this page does not exist: no placeholder
+   price can reach the site, and the sitemap and nav stay consistent with it. */
+export function getStaticPaths() {
+  return pricing.published ? [{ params: { page: undefined } }] : [];
+}
+
+const path = '/pricing/';
+const pageUrl = new URL(path, site.url).href;
+
+const money = (n: number | null) =>
+  n === null ? null : `$${n.toLocaleString('en-CA')}`;
+
+const breadcrumbs = [
+  { name: 'Home', href: '/' },
+  { name: 'Pricing', href: path },
+];
+
+const offers = {
+  '@type': 'OfferCatalog',
+  '@id': `${pageUrl}#offers`,
+  name: 'Next Scale Digital retainers',
+  provider: { '@id': `${site.url}/#organization` },
+  itemListElement: pricing.tiers
+    .filter((t) => t.monthly !== null)
+    .map((t) => ({
+      '@type': 'Offer',
+      name: t.name,
+      description: t.forWho,
+      priceCurrency: pricing.currency,
+      price: t.monthly,
+      priceSpecification: {
+        '@type': 'UnitPriceSpecification',
+        price: t.monthly,
+        priceCurrency: pricing.currency,
+        unitText: 'MONTH',
+        billingIncrement: 1,
+      },
+    })),
+};
+---
+
+<Base
+  title="Pricing | Next Scale Digital"
+  description="What local SEO, websites and Google Ads management cost with Next Scale Digital. Flat monthly fees, no percentage of ad spend, month to month after the initial term."
+  path={path}
+  breadcrumbs={breadcrumbs}
+  schema={[offers, faqSchema(pricing.faqs, pageUrl)]}
+>
+  <section class="phero">
+    <div class="wrap">
+      <nav class="crumbs" aria-label="Breadcrumb">
+        <ol>
+          <li><a href="/">Home</a></li>
+          <li><span aria-current="page">Pricing</span></li>
+        </ol>
+      </nav>
+      <span class="eyebrow">Pricing</span>
+      <h1>What it costs, before you have to ask</h1>
+      <p class="lede">
+        Flat monthly fees. No percentage of your ad spend. {pricing.taxNote}
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="tiers">
+        {pricing.tiers.map((t) => (
+          <article class="tier">
+            <h2>{t.name}</h2>
+            <p class="tier-for">{t.forWho}</p>
+            <p class="tier-price">
+              {money(t.monthly) ? (
+                <><span class="num tier-amt">{money(t.monthly)}</span><span class="tier-per">/month</span></>
+              ) : (
+                <span class="tier-amt">On request</span>
+              )}
+            </p>
+            {t.setup !== null && t.setup > 0 && (
+              <p class="tier-setup"><span class="num">{money(t.setup)}</span> one-off setup</p>
+            )}
+            <ul class="tier-inc">
+              {t.includes.map((i) => <li>{i}</li>)}
+            </ul>
+            {t.notIncluded && t.notIncluded.length > 0 && (
+              <ul class="tier-not">
+                {t.notIncluded.map((i) => <li>{i}</li>)}
+              </ul>
+            )}
+            <a href="/contact/" class="btn btn-ghost tier-cta">Start with a free audit</a>
+          </article>
+        ))}
+      </div>
+
+      <p class="term-note">{pricing.termNote}</p>
+    </div>
+  </section>
+
+  <section class="section section-mist">
+    <div class="wrap-tight">
+      <span class="eyebrow">Project work</span>
+      <h2>Priced as projects, not retainers</h2>
+      <dl class="projects">
+        {pricing.projects.map((p) => (
+          <div>
+            <dt>{p.name}</dt>
+            <dd>
+              {money(p.from) ? <>from <span class="num">{money(p.from)}</span>. </> : <>Quoted per build. </>}
+              {p.note}
+            </dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  </section>
+
+  <FAQ items={pricing.faqs} heading="Questions about the money" />
+
+  <CTA />
+</Base>
+
+<style>
+  .phero { background: var(--ink); color: var(--fg-on-ink); padding-block: var(--sp-6) var(--sp-8); }
+  .phero .eyebrow { color: var(--brand-lite); }
+  .phero .eyebrow::after { background: var(--rule-dark); }
+  .phero h1 { color: var(--paper); font-size: var(--step-4); max-width: 18ch; }
+  .phero .lede { color: var(--fg-on-ink-muted); }
+
+  .crumbs { margin-bottom: var(--sp-6); }
+  .crumbs ol {
+    list-style: none; margin: 0; padding: 0;
+    display: flex; flex-wrap: wrap; gap: 0.5rem;
+    font-family: var(--font-mono); font-size: 0.74rem; color: var(--fg-faint);
+  }
+  .crumbs li + li::before { content: "/"; margin-right: 0.5rem; color: var(--rule-dark); }
+  .crumbs a { color: var(--fg-on-ink-muted); text-decoration: none; }
+  .crumbs a:hover { color: var(--brand-lite); }
+
+  .tiers {
+    display: grid; gap: var(--sp-4);
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+  .tier {
+    display: flex; flex-direction: column;
+    border: 1px solid var(--rule);
+    border-radius: var(--radius-lg);
+    padding: var(--sp-6);
+    background: var(--paper);
+  }
+  .tier h2 { font-size: var(--step-2); margin-bottom: var(--sp-3); }
+  .tier-for { color: var(--fg-muted); font-size: 0.92rem; margin-bottom: var(--sp-5); }
+  .tier-price { margin: 0 0 var(--sp-2); display: flex; align-items: baseline; gap: 0.35rem; }
+  .tier-amt {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--step-3);
+    letter-spacing: -0.028em;
+  }
+  .tier-per { color: var(--fg-faint); font-size: 0.9rem; }
+  .tier-setup { font-size: 0.85rem; color: var(--fg-muted); margin-bottom: var(--sp-4); }
+  .tier-inc {
+    list-style: none; margin: var(--sp-4) 0 0; padding: 0;
+    display: grid; gap: 0.6rem;
+    font-size: 0.9rem;
+    border-top: 1px solid var(--mist-2);
+    padding-top: var(--sp-4);
+  }
+  .tier-inc li { position: relative; padding-left: 1.4rem; }
+  .tier-inc li::before {
+    content: ""; position: absolute; left: 0.15rem; top: 0.42em;
+    width: 9px; height: 5px;
+    border-left: 1.8px solid var(--signal);
+    border-bottom: 1.8px solid var(--signal);
+    transform: rotate(-45deg);
+  }
+  .tier-not {
+    list-style: none; margin: var(--sp-4) 0 0; padding: 0;
+    display: grid; gap: 0.5rem; font-size: 0.85rem; color: var(--fg-faint);
+  }
+  .tier-not li { position: relative; padding-left: 1.4rem; }
+  .tier-not li::before {
+    content: "\00D7"; position: absolute; left: 0.35rem; top: -0.05em; color: var(--fg-faint);
+  }
+  .tier-cta { margin-top: auto; align-self: flex-start; }
+  .tier-inc + .tier-cta, .tier-not + .tier-cta { margin-top: var(--sp-5); }
+
+  .term-note {
+    margin-top: var(--sp-6);
+    font-size: 0.9rem;
+    color: var(--fg-muted);
+    max-width: 70ch;
+  }
+
+  .projects { margin: var(--sp-6) 0 0; display: grid; gap: 0; border-top: 1px solid var(--rule); }
+  .projects > div { padding-block: var(--sp-4); border-bottom: 1px solid var(--rule); }
+  .projects dt { font-family: var(--font-display); font-weight: 600; font-size: 1.02rem; margin-bottom: 0.3rem; }
+  .projects dd { margin: 0; color: var(--fg-muted); font-size: 0.92rem; }
+  @media (min-width: 700px) {
+    .projects > div { display: grid; grid-template-columns: 18rem 1fr; gap: var(--sp-5); align-items: baseline; }
+    .projects dt { margin-bottom: 0; }
+  }
+</style>
