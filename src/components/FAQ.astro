@@ -1,0 +1,53 @@
+---
+/* Renders the visible FAQ. The FAQPage JSON-LD is emitted by the page via
+   faqSchema() so the markup and the structured data cannot drift apart. */
+export interface Props {
+  items: { q: string; a: string }[];
+  heading?: string;
+}
+const { items, heading = 'Questions we get asked first' } = Astro.props;
+---
+<section class="section faq">
+  <div class="wrap-tight">
+    <span class="eyebrow">Common questions</span>
+    <h2>{heading}</h2>
+    <div class="faq-list">
+      {items.map((item, i) => (
+        <details name="faq" open={i === 0}>
+          <summary>{item.q}</summary>
+          <div class="faq-a" set:html={item.a} />
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq-list { margin-top: var(--sp-6); border-top: 1px solid var(--rule); }
+  details { border-bottom: 1px solid var(--rule); }
+  summary {
+    cursor: pointer;
+    list-style: none;
+    padding: var(--sp-5) 2.4rem var(--sp-5) 0;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: var(--step-1);
+    letter-spacing: -0.018em;
+    position: relative;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary::after {
+    content: "";
+    position: absolute;
+    right: 0.4rem; top: 50%;
+    width: 10px; height: 10px;
+    border-right: 1.8px solid var(--fg-muted);
+    border-bottom: 1.8px solid var(--fg-muted);
+    transform: translateY(-70%) rotate(45deg);
+    transition: transform 180ms ease;
+  }
+  details[open] summary::after { transform: translateY(-20%) rotate(-135deg); }
+  .faq-a { padding-bottom: var(--sp-5); color: var(--fg-muted); }
+  .faq-a :global(p) { margin-bottom: var(--sp-3); }
+  .faq-a :global(p:last-child) { margin-bottom: 0; }
+</style>

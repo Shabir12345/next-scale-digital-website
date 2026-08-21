@@ -1,0 +1,128 @@
+---
+import Base from '../../layouts/Base.astro';
+import CTA from '../../components/CTA.astro';
+import { getCollection } from 'astro:content';
+import { site } from '../../data/site';
+
+const path = '/insights/';
+const pageUrl = new URL(path, site.url).href;
+
+const posts = (await getCollection('insights', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.published.valueOf() - a.data.published.valueOf(),
+);
+
+const breadcrumbs = [
+  { name: 'Home', href: '/' },
+  { name: 'Insights', href: path },
+];
+
+const fmt = (d: Date) =>
+  d.toLocaleDateString('en-CA', { year: 'numeric', month: 'long', day: 'numeric' });
+
+const blog = {
+  '@type': 'Blog',
+  '@id': `${pageUrl}#blog`,
+  name: 'Next Scale Digital Insights',
+  publisher: { '@id': `${site.url}/#organization` },
+  blogPost: posts.map((p) => ({
+    '@type': 'BlogPosting',
+    headline: p.data.title,
+    description: p.data.description,
+    datePublished: p.data.published.toISOString(),
+    url: new URL(`/insights/${p.id}/`, site.url).href,
+  })),
+};
+---
+
+<Base
+  title="Insights: Local SEO & Google Ads for GTA Service Businesses | Next Scale Digital"
+  description="Practical writing on local search, Google Business Profile, Google Ads break-even and websites for service businesses in the GTA. Written to be useful without hiring anyone."
+  path={path}
+  breadcrumbs={breadcrumbs}
+  schema={[blog]}
+>
+  <section class="phero">
+    <div class="wrap">
+      <nav class="crumbs" aria-label="Breadcrumb">
+        <ol>
+          <li><a href="/">Home</a></li>
+          <li><span aria-current="page">Insights</span></li>
+        </ol>
+      </nav>
+      <span class="eyebrow">Insights</span>
+      <h1>Written so you could do it yourself</h1>
+      <p class="lede">
+        Each of these answers a question owners ask us, with enough detail to act on
+        without hiring anybody. If you read one and fix the thing yourself, that is a
+        good outcome.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="posts">
+        {posts.map((p) => (
+          <article class="post">
+            <div class="post-meta">
+              <time datetime={p.data.published.toISOString()}>{fmt(p.data.published)}</time>
+              <span class="post-read num">{p.data.readingMinutes} min</span>
+            </div>
+            <div>
+              <h2><a href={`/insights/${p.id}/`}>{p.data.title}</a></h2>
+              <p>{p.data.description}</p>
+              <a class="post-go" href={`/insights/${p.id}/`}>Read it</a>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CTA />
+</Base>
+
+<style>
+  .phero { background: var(--ink); color: var(--fg-on-ink); padding-block: var(--sp-6) var(--sp-8); }
+  .phero .eyebrow { color: var(--brand-lite); }
+  .phero .eyebrow::after { background: var(--rule-dark); }
+  .phero h1 { color: var(--paper); font-size: var(--step-4); max-width: 18ch; }
+  .phero .lede { color: var(--fg-on-ink-muted); }
+
+  .crumbs { margin-bottom: var(--sp-6); }
+  .crumbs ol {
+    list-style: none; margin: 0; padding: 0;
+    display: flex; flex-wrap: wrap; gap: 0.5rem;
+    font-family: var(--font-mono); font-size: 0.74rem; color: var(--fg-faint);
+  }
+  .crumbs li + li::before { content: "/"; margin-right: 0.5rem; color: var(--rule-dark); }
+  .crumbs a { color: var(--fg-on-ink-muted); text-decoration: none; }
+  .crumbs a:hover { color: var(--brand-lite); }
+
+  .posts { display: grid; gap: 0; border-top: 1px solid var(--rule); }
+  .post {
+    display: grid; gap: var(--sp-4);
+    padding-block: var(--sp-6);
+    border-bottom: 1px solid var(--rule);
+    align-items: start;
+  }
+  .post-meta {
+    display: flex; gap: var(--sp-4); align-items: baseline;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--fg-faint);
+  }
+  .post h2 { font-size: var(--step-2); margin-bottom: var(--sp-3); }
+  .post h2 a { color: inherit; text-decoration: none; }
+  .post h2 a:hover { color: var(--brand); }
+  .post p { color: var(--fg-muted); margin-bottom: var(--sp-4); }
+  .post-go { font-family: var(--font-display); font-weight: 600; font-size: 0.9rem; text-decoration: none; }
+  .post-go::after { content: " \2192"; }
+
+  @media (min-width: 860px) {
+    .post { grid-template-columns: 12rem 1fr; gap: var(--sp-6); }
+    .post-meta { flex-direction: column; gap: 0.4rem; padding-top: 0.5rem; }
+  }
+</style>

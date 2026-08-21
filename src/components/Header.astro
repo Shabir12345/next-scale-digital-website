@@ -1,0 +1,127 @@
+---
+import { nav, site } from '../data/site';
+import Logo from './Logo.astro';
+const path = Astro.url.pathname;
+const isActive = (href: string) => path === href || (href !== '/' && path.startsWith(href));
+---
+
+<header class="hdr">
+  <div class="wrap hdr-in">
+    <a href="/" class="hdr-brand" aria-label={`${site.name} home`}>
+      <Logo size={34} />
+      <span class="hdr-name">Next Scale <em>Digital</em></span>
+    </a>
+
+    <nav class="hdr-nav" aria-label="Primary">
+      {nav.map((item) => (
+        <a href={item.href} class:list={['hdr-link', { on: isActive(item.href) }]}>
+          {item.label}
+        </a>
+      ))}
+    </nav>
+
+    <a href="/contact/" class="btn btn-primary hdr-cta">Get a free audit</a>
+
+    <button class="hdr-toggle" id="navToggle" aria-expanded="false" aria-controls="mobileNav">
+      <span class="sr-only">Menu</span>
+      <span class="bar" aria-hidden="true"></span>
+      <span class="bar" aria-hidden="true"></span>
+    </button>
+  </div>
+
+  <div class="hdr-mobile" id="mobileNav" hidden>
+    <div class="wrap">
+      {nav.map((item) => <a href={item.href}>{item.label}</a>)}
+      <a href="/contact/" class="btn btn-primary">Get a free audit</a>
+    </div>
+  </div>
+</header>
+
+<style>
+  .hdr {
+    position: sticky;
+    top: 0;
+    z-index: 60;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: saturate(1.6) blur(10px);
+    border-bottom: 1px solid var(--rule);
+  }
+  .hdr-in {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-5);
+    min-height: 68px;
+  }
+  .hdr-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    text-decoration: none;
+    color: var(--fg);
+    margin-right: auto;
+  }
+  .hdr-name {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.02rem;
+    letter-spacing: -0.028em;
+    white-space: nowrap;
+  }
+  .hdr-name em { font-style: normal; font-weight: 500; color: var(--fg-muted); }
+
+  .hdr-nav { display: flex; gap: var(--sp-5); }
+  .hdr-link {
+    font-size: 0.94rem;
+    font-weight: 500;
+    color: var(--fg-muted);
+    text-decoration: none;
+    padding-block: 0.4rem;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+  }
+  .hdr-link:hover { color: var(--fg); }
+  .hdr-link.on { color: var(--fg); border-bottom-color: var(--brand); }
+
+  .hdr-cta { padding: 0.6rem 1.05rem; font-size: 0.9rem; }
+
+  .hdr-toggle {
+    display: none;
+    background: none;
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+    width: 42px; height: 38px;
+    padding: 0;
+    cursor: pointer;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+  }
+  .hdr-toggle .bar { display: block; width: 17px; height: 1.5px; background: var(--fg); }
+
+  .hdr-mobile { border-top: 1px solid var(--rule); background: var(--paper); padding-block: var(--sp-4); }
+  .hdr-mobile .wrap { display: flex; flex-direction: column; gap: var(--sp-2); }
+  .hdr-mobile a {
+    text-decoration: none;
+    color: var(--fg);
+    font-weight: 500;
+    padding: 0.6rem 0;
+    border-bottom: 1px solid var(--mist-2);
+  }
+  .hdr-mobile .btn { justify-content: center; margin-top: var(--sp-3); border-bottom: 0; color: #fff; }
+
+  @media (max-width: 900px) {
+    .hdr-nav, .hdr-cta { display: none; }
+    .hdr-toggle { display: flex; }
+  }
+</style>
+
+<script>
+  const toggle = document.getElementById('navToggle');
+  const panel = document.getElementById('mobileNav');
+  toggle?.addEventListener('click', () => {
+    const open = toggle.getAttribute('aria-expanded') === 'true';
+    toggle.setAttribute('aria-expanded', String(!open));
+    if (panel) panel.hidden = open;
+  });
+</script>

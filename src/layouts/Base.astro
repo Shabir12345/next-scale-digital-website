@@ -1,0 +1,172 @@
+---
+import '../styles/tokens.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { site } from '../data/site';
+
+export interface Props {
+  title: string;
+  description: string;
+  /** Path with leading and trailing slash, e.g. "/services/local-seo/" */
+  path: string;
+  ogType?: string;
+  noindex?: boolean;
+  /** Extra JSON-LD nodes to merge into the page graph */
+  schema?: unknown[];
+  breadcrumbs?: { name: string; href: string }[];
+  publishedTime?: string;
+  modifiedTime?: string;
+}
+
+const {
+  title,
+  description,
+  path,
+  ogType = 'website',
+  noindex = false,
+  schema = [],
+  breadcrumbs = [],
+  publishedTime,
+  modifiedTime,
+} = Astro.props;
+
+const canonical = new URL(path, site.url).href;
+const ogImage = new URL('/og/default.png', site.url).href;
+
+const orgId = `${site.url}/#organization`;
+const siteId = `${site.url}/#website`;
+
+const organization = {
+  '@type': ['Organization', 'ProfessionalService'],
+  '@id': orgId,
+  name: site.name,
+  url: site.url,
+  email: site.email,
+  ...(site.phone ? { telephone: site.phone } : {}),
+  foundingDate: String(site.foundingYear),
+  description:
+    'Next Scale Digital builds websites, runs local SEO and manages Google Ads for service businesses across Toronto and York Region.',
+  logo: {
+    '@type': 'ImageObject',
+    '@id': `${site.url}/#logo`,
+    url: new URL('/logo.svg', site.url).href,
+    contentUrl: new URL('/logo.svg', site.url).href,
+    width: 200,
+    height: 200,
+    caption: site.name,
+  },
+  image: { '@id': `${site.url}/#logo` },
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: site.city,
+    addressRegion: site.region,
+    addressCountry: site.country,
+  },
+  areaServed: {
+    '@type': 'GeoCircle',
+    geoMidpoint: {
+      '@type': 'GeoCoordinates',
+      latitude: site.geo.lat,
+      longitude: site.geo.lng,
+    },
+    geoRadius: site.serviceRadiusKm * 1000,
+  },
+  ...(site.social.linkedin ? { sameAs: [site.social.linkedin] } : {}),
+};
+
+const website = {
+  '@type': 'WebSite',
+  '@id': siteId,
+  url: site.url,
+  name: site.name,
+  publisher: { '@id': orgId },
+  inLanguage: 'en-CA',
+};
+
+const webpage = {
+  '@type': ogType === 'article' ? 'Article' : 'WebPage',
+  '@id': `${canonical}#page`,
+  url: canonical,
+  name: title,
+  description,
+  isPartOf: { '@id': siteId },
+  ...(ogType === 'article'
+    ? {
+        headline: title,
+        author: { '@id': orgId },
+        publisher: { '@id': orgId },
+        ...(publishedTime ? { datePublished: publishedTime } : {}),
+        ...(modifiedTime ? { dateModified: modifiedTime } : {}),
+      }
+    : { about: { '@id': orgId } }),
+};
+
+const breadcrumbNode =
+  breadcrumbs.length > 0
+    ? [
+        {
+          '@type': 'BreadcrumbList',
+          '@id': `${canonical}#breadcrumb`,
+          itemListElement: breadcrumbs.map((b, i) => ({
+            '@type': 'ListItem',
+            position: i + 1,
+            name: b.name,
+            item: new URL(b.href, site.url).href,
+          })),
+        },
+      ]
+    : [];
+
+const graph = {
+  '@context': 'https://schema.org',
+  '@graph': [organization, website, webpage, ...breadcrumbNode, ...schema],
+};
+---
+
+<!doctype html>
+<html lang="en-CA">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+
+    <meta property="og:type" content={ogType} />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:locale" content="en_CA" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="theme-color" content="#0A1628" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap"
+    />
+
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <script type="application/ld+json" set:html={JSON.stringify(graph)} />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to main content</a>
+    <Header />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

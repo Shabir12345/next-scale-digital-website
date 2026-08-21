@@ -1,0 +1,171 @@
+---
+/* The signature element.
+   A service business does not have "a" Google ranking; it has a different one from
+   every point on the map. This grid is the artifact NSD actually produces in an
+   audit, so it opens the page instead of a stock hero image.
+
+   The figures below are an illustration of the pattern, not a client's data.
+   Client ranking data is not ours to publish. */
+
+const grid: (number | null)[][] = [
+  [null, 12,   8,   14,  null],
+  [9,    4,    2,   6,   11],
+  [7,    2,    1,   3,   8],
+  [10,   5,    3,   5,   13],
+  [null, 11,   7,   9,   null],
+];
+
+const band = (v: number | null) =>
+  v === null ? 'off' : v <= 3 ? 'pack' : v <= 10 ? 'page1' : 'lost';
+
+const label = (v: number | null) => (v === null ? '—' : String(v));
+
+const counts = grid.flat().reduce(
+  (acc, v) => {
+    acc[band(v)] = (acc[band(v)] || 0) + 1;
+    return acc;
+  },
+  {} as Record<string, number>,
+);
+const total = grid.flat().length;
+---
+
+<figure class="geo">
+  <div class="geo-head">
+    <span class="eyebrow geo-eyebrow">Local pack position by search location</span>
+  </div>
+
+  <div class="geo-body">
+    <div class="geo-grid" role="img"
+      aria-label={`A five by five grid of search locations around one business. It holds a top-three map position in ${counts.pack} of ${total} locations, sits on page one in ${counts.page1}, falls past position ten in ${counts.lost}, and does not appear at all in ${counts.off}.`}>
+      {grid.map((row, ri) =>
+        row.map((v, ci) => (
+          <span
+            class:list={['geo-cell', band(v)]}
+            style={`--d:${(ri + ci) * 55}ms`}
+            aria-hidden="true"
+          >
+            <span class="num">{label(v)}</span>
+          </span>
+        )),
+      )}
+      <span class="geo-pin" aria-hidden="true">
+        <span class="geo-pin-ring"></span>
+      </span>
+    </div>
+
+    <ul class="geo-key">
+      <li><i class="sw pack"></i> Top 3, in the map pack <b class="num">{counts.pack}</b></li>
+      <li><i class="sw page1"></i> 4 to 10, below the fold <b class="num">{counts.page1}</b></li>
+      <li><i class="sw lost"></i> 11+, effectively invisible <b class="num">{counts.lost}</b></li>
+      <li><i class="sw off"></i> Not ranking at all <b class="num">{counts.off}</b></li>
+    </ul>
+  </div>
+
+  <figcaption class="geo-cap">
+    One business, one keyword, twenty-five search locations across its service area.
+    The centre pin is the shop. A rank checked from the middle of the city says almost
+    nothing about what a customer three suburbs over sees. Illustration of the audit
+    output, not a client's data.
+  </figcaption>
+</figure>
+
+<style>
+  .geo {
+    margin: 0;
+    background: var(--ink-2);
+    border: 1px solid var(--rule-dark);
+    border-radius: var(--radius-lg);
+    padding: var(--sp-5);
+  }
+  .geo-head { margin-bottom: var(--sp-5); }
+  .geo-eyebrow { margin: 0; color: var(--brand-lite); }
+  .geo-eyebrow::after { background: var(--rule-dark); }
+
+  .geo-body { display: grid; grid-template-columns: 1fr; gap: var(--sp-5); }
+
+  .geo-grid {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 5px;
+    aspect-ratio: 1;
+    max-width: 380px;
+    margin-inline: auto;
+    width: 100%;
+  }
+
+  .geo-cell {
+    display: grid;
+    place-items: center;
+    border-radius: 3px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    border: 1px solid transparent;
+    animation: cellIn 420ms ease-out both;
+    animation-delay: var(--d);
+  }
+  @keyframes cellIn {
+    from { opacity: 0; transform: scale(0.86); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+
+  .geo-cell.pack  { background: rgba(22, 163, 74, 0.20);  border-color: rgba(34, 197, 94, 0.55); color: #6EE7A0; }
+  .geo-cell.page1 { background: rgba(234, 106, 11, 0.16); border-color: rgba(249, 115, 22, 0.45); color: #FBB874; }
+  .geo-cell.lost  { background: rgba(220, 38, 38, 0.14);  border-color: rgba(220, 38, 38, 0.40); color: #F79191; }
+  .geo-cell.off   { background: rgba(255, 255, 255, 0.03); border-color: var(--rule-dark); color: #55688A; }
+
+  .geo-pin {
+    position: absolute;
+    left: 50%; top: 50%;
+    width: 0; height: 0;
+    display: grid; place-items: center;
+    pointer-events: none;
+  }
+  /* The pin marks the shop without covering the rank it is standing on: a ring
+     sized to the centre cell, plus a label tucked underneath the grid line. */
+  .geo-pin-ring {
+    position: absolute;
+    width: 46px; height: 46px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(255, 255, 255, 0.55);
+    animation: ping 3s ease-out infinite;
+  }
+  @keyframes ping {
+    0%   { transform: scale(0.72); opacity: 0.85; }
+    70%  { transform: scale(1.35); opacity: 0; }
+    100% { transform: scale(1.35); opacity: 0; }
+  }
+
+  .geo-key {
+    list-style: none;
+    margin: 0; padding: 0;
+    display: grid;
+    gap: 0.55rem;
+    align-content: center;
+    font-size: 0.86rem;
+    color: var(--fg-on-ink-muted);
+  }
+  .geo-key li { display: flex; align-items: center; gap: 0.55rem; }
+  .geo-key b { margin-left: auto; color: var(--paper); font-weight: 500; }
+  .sw { width: 11px; height: 11px; border-radius: 2px; flex: none; border: 1px solid transparent; }
+  .sw.pack  { background: rgba(22, 163, 74, 0.35);  border-color: rgba(34, 197, 94, 0.7); }
+  .sw.page1 { background: rgba(234, 106, 11, 0.32); border-color: rgba(249, 115, 22, 0.7); }
+  .sw.lost  { background: rgba(220, 38, 38, 0.28);  border-color: rgba(220, 38, 38, 0.7); }
+  .sw.off   { background: rgba(255,255,255,0.05);   border-color: var(--rule-dark); }
+
+  .geo-cap {
+    margin-top: var(--sp-5);
+    padding-top: var(--sp-4);
+    border-top: 1px solid var(--rule-dark);
+    font-size: 0.82rem;
+    line-height: 1.62;
+    color: var(--fg-faint);
+    max-width: 62ch;
+  }
+
+  @media (min-width: 620px) {
+    .geo-body { grid-template-columns: minmax(0, 1fr) minmax(210px, 0.85fr); align-items: center; }
+    .geo-grid { margin-inline: 0; }
+  }
+</style>

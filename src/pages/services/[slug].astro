@@ -1,0 +1,259 @@
+---
+import Base from '../../layouts/Base.astro';
+import CTA from '../../components/CTA.astro';
+import FAQ from '../../components/FAQ.astro';
+import { services, site } from '../../data/site';
+import { serviceContent } from '../../data/services-content';
+import { faqSchema, serviceSchema } from '../../lib/schema';
+
+export function getStaticPaths() {
+  return services.map((s) => ({ params: { slug: s.slug }, props: { service: s } }));
+}
+
+const { service } = Astro.props;
+const content = serviceContent[service.slug];
+const path = `/services/${service.slug}/`;
+const pageUrl = new URL(path, site.url).href;
+
+const others = services.filter((s) => s.slug !== service.slug);
+
+const breadcrumbs = [
+  { name: 'Home', href: '/' },
+  { name: 'Services', href: '/services/' },
+  { name: service.title, href: path },
+];
+---
+
+<Base
+  title={service.metaTitle}
+  description={service.metaDescription}
+  path={path}
+  breadcrumbs={breadcrumbs}
+  schema={[
+    serviceSchema({
+      name: service.title,
+      description: service.metaDescription,
+      url: pageUrl,
+      serviceType: content.serviceType,
+    }),
+    faqSchema(content.faqs, pageUrl),
+  ]}
+>
+  <section class="phero">
+    <div class="wrap">
+      <nav class="crumbs" aria-label="Breadcrumb">
+        <ol>
+          {breadcrumbs.map((b, i) => (
+            <li>
+              {i < breadcrumbs.length - 1 ? <a href={b.href}>{b.name}</a> : <span aria-current="page">{b.name}</span>}
+            </li>
+          ))}
+        </ol>
+      </nav>
+
+      <div class="phero-in">
+        <div>
+          <span class="eyebrow">Service</span>
+          <h1>{service.h1}</h1>
+          <p class="lede">{content.intro}</p>
+          <div class="btn-row">
+            <a href="/contact/" class="btn btn-primary">Get a free audit</a>
+          </div>
+        </div>
+        <aside class="phero-side">
+          <span class="phero-side-k">Measured by</span>
+          <p class="phero-side-v">{service.outcome}</p>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap-tight">
+      <span class="eyebrow">The problem</span>
+      <h2>{content.problem.heading}</h2>
+      {content.problem.body.map((p) => <p class="prose">{p}</p>)}
+    </div>
+  </section>
+
+  <section class="section section-mist">
+    <div class="wrap">
+      <span class="eyebrow">What the work is</span>
+      <h2>What {service.title} includes</h2>
+
+      <div class="inc-grid">
+        {content.includes.map((i) => (
+          <div class="inc">
+            <h3>{i.title}</h3>
+            <p>{i.detail}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-ink">
+    <div class="wrap">
+      <span class="eyebrow">Reporting</span>
+      <h2>What gets reported to you</h2>
+      <p class="lede">
+        These are the lines on the monthly report. Anything not on this list is
+        background, not a result.
+      </p>
+
+      <dl class="metrics">
+        {content.measured.map((m) => (
+          <div class="metric">
+            <dt>{m.metric}</dt>
+            <dd>{m.note}</dd>
+          </div>
+        ))}
+      </dl>
+
+      <p class="notfor"><strong>When this is the wrong service:</strong> {content.notFor}</p>
+    </div>
+  </section>
+
+  <FAQ items={content.faqs} heading={`${service.title}: what clients ask`} />
+
+  <section class="section-sm section-mist">
+    <div class="wrap">
+      <span class="eyebrow">Other services</span>
+      <div class="other-grid">
+        {others.map((o) => (
+          <a class="other" href={`/services/${o.slug}/`}>
+            <h3>{o.title}</h3>
+            <p>{o.summary}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CTA />
+</Base>
+
+<style>
+  .phero {
+    background: var(--ink);
+    color: var(--fg-on-ink);
+    padding-block: var(--sp-6) var(--sp-8);
+  }
+  .phero .eyebrow { color: var(--brand-lite); }
+  .phero .eyebrow::after { background: var(--rule-dark); }
+  .phero h1 { color: var(--paper); font-size: var(--step-4); max-width: 20ch; }
+  .phero .lede { color: var(--fg-on-ink-muted); margin-bottom: var(--sp-6); }
+
+  .crumbs { margin-bottom: var(--sp-6); }
+  .crumbs ol {
+    list-style: none; margin: 0; padding: 0;
+    display: flex; flex-wrap: wrap; gap: 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    color: var(--fg-faint);
+  }
+  .crumbs li + li::before { content: "/"; margin-right: 0.5rem; color: var(--rule-dark); }
+  .crumbs a { color: var(--fg-on-ink-muted); text-decoration: none; }
+  .crumbs a:hover { color: var(--brand-lite); }
+
+  .phero-in { display: grid; gap: var(--sp-6); align-items: start; }
+  .phero-side {
+    border: 1px solid var(--rule-dark);
+    border-radius: var(--radius-lg);
+    padding: var(--sp-5);
+    background: var(--ink-2);
+  }
+  .phero-side-k {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--brand-lite);
+    margin-bottom: var(--sp-3);
+  }
+  .phero-side-v {
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: var(--step-1);
+    line-height: 1.3;
+    letter-spacing: -0.018em;
+    color: var(--paper);
+  }
+  @media (min-width: 980px) {
+    .phero-in { grid-template-columns: 1.55fr 0.9fr; gap: var(--sp-8); }
+  }
+
+  .prose { font-size: var(--step-0); margin-bottom: var(--sp-5); }
+
+  .inc-grid {
+    display: grid;
+    gap: var(--sp-4);
+    margin-top: var(--sp-6);
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+  .inc {
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius-lg);
+    padding: var(--sp-5);
+  }
+  .inc h3 { font-size: 1.05rem; margin-bottom: var(--sp-2); }
+  .inc p { margin: 0; font-size: 0.92rem; color: var(--fg-muted); }
+
+  .metrics {
+    margin: var(--sp-6) 0 0;
+    display: grid;
+    gap: 0;
+    border-top: 1px solid var(--rule-dark);
+  }
+  .metric {
+    display: grid;
+    gap: var(--sp-2);
+    padding-block: var(--sp-4);
+    border-bottom: 1px solid var(--rule-dark);
+  }
+  .metric dt {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.02rem;
+    color: var(--paper);
+  }
+  .metric dd { margin: 0; color: var(--fg-on-ink-muted); font-size: 0.92rem; }
+  @media (min-width: 720px) {
+    .metric { grid-template-columns: 0.9fr 1.1fr; gap: var(--sp-5); align-items: baseline; }
+  }
+
+  .notfor {
+    margin-top: var(--sp-6);
+    padding: var(--sp-5);
+    border: 1px solid var(--rule-dark);
+    border-radius: var(--radius-lg);
+    background: rgba(234, 106, 11, 0.08);
+    color: var(--fg-on-ink-muted);
+    font-size: 0.94rem;
+    max-width: none;
+  }
+  .notfor strong { color: var(--paper); }
+
+  .other-grid {
+    display: grid;
+    gap: var(--sp-4);
+    margin-top: var(--sp-5);
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  }
+  .other {
+    display: block;
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius-lg);
+    padding: var(--sp-4) var(--sp-5);
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 150ms ease;
+  }
+  .other:hover { border-color: var(--brand); color: inherit; }
+  .other h3 { font-size: 1rem; margin-bottom: 0.3rem; }
+  .other p { margin: 0; font-size: 0.87rem; color: var(--fg-muted); }
+</style>

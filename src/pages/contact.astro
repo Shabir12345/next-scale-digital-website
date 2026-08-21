@@ -1,0 +1,319 @@
+---
+import Base from '../layouts/Base.astro';
+import { site, services, serviceAreas } from '../data/site';
+import { faqSchema } from '../lib/schema';
+
+const path = '/contact/';
+const pageUrl = new URL(path, site.url).href;
+
+/* The old site's form called preventDefault(), showed an alert saying "we will be
+   in touch within 24 hours", and threw the lead away. Nothing was ever sent.
+
+   Set FORM_ENDPOINT to a real handler (Formspree, Web3Forms, a Worker) and the
+   form posts to it. Until then it composes a pre-filled email instead, so a lead
+   is never silently swallowed again. There is no code path here that pretends to
+   have sent something. */
+const FORM_ENDPOINT = '';
+
+const breadcrumbs = [
+  { name: 'Home', href: '/' },
+  { name: 'Contact', href: path },
+];
+
+const faqs = [
+  {
+    q: 'What happens after I send this?',
+    a: '<p>You get a reply from a person, usually within two business days. If the audit is a fit we run it and send the report back. There is no call required to receive it.</p>',
+  },
+  {
+    q: 'Is the audit really free?',
+    a: '<p>Yes, and you keep it whether or not you hire us. It takes a few hours of work and it is the most honest sales pitch available: either it finds something worth fixing or it does not.</p>',
+  },
+  {
+    q: 'What do you need from me to run it?',
+    a: '<p>Your website address, the city or area you serve, and the services you most want more of. If you can add your Google Business Profile link that makes the local half considerably more accurate.</p>',
+  },
+];
+---
+
+<Base
+  title="Contact Next Scale Digital | Free GTA Local Search Audit"
+  description="Request a free local search audit for your GTA service business. We measure your map pack position across your service area and send the report back, with no obligation."
+  path={path}
+  breadcrumbs={breadcrumbs}
+  schema={[faqSchema(faqs, pageUrl)]}
+>
+  <section class="phero">
+    <div class="wrap">
+      <nav class="crumbs" aria-label="Breadcrumb">
+        <ol>
+          <li><a href="/">Home</a></li>
+          <li><span aria-current="page">Contact</span></li>
+        </ol>
+      </nav>
+      <span class="eyebrow">Free audit request</span>
+      <h1>Tell us where you are trying to rank</h1>
+      <p class="lede">
+        We will check your map position across your service area, your indexing status,
+        and what the businesses ranking above you have that you do not. You keep the
+        report either way.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap contact-grid">
+      <div class="form-wrap">
+        <form id="auditForm" novalidate>
+          <div class="f-row">
+            <div class="field">
+              <label for="name">Your name</label>
+              <input id="name" name="name" type="text" autocomplete="name" required />
+            </div>
+            <div class="field">
+              <label for="business">Business name</label>
+              <input id="business" name="business" type="text" autocomplete="organization" required />
+            </div>
+          </div>
+
+          <div class="f-row">
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" autocomplete="email" required />
+            </div>
+            <div class="field">
+              <label for="phone">Phone <span class="opt">optional</span></label>
+              <input id="phone" name="phone" type="tel" autocomplete="tel" />
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="website">Website address</label>
+            <input id="website" name="website" type="url" placeholder="https://" inputmode="url" />
+            <p class="hint">If you do not have one yet, leave it blank and say so below.</p>
+          </div>
+
+          <div class="f-row">
+            <div class="field">
+              <label for="area">Area you serve</label>
+              <input id="area" name="area" type="text" list="areas" placeholder="e.g. Newmarket and north York Region" />
+              <datalist id="areas">
+                {serviceAreas.map((a) => <option value={a}></option>)}
+              </datalist>
+            </div>
+            <div class="field">
+              <label for="service">What you want more of</label>
+              <select id="service" name="service">
+                <option value="">Choose one</option>
+                {services.map((s) => <option value={s.title}>{s.title}</option>)}
+                <option value="Not sure yet">Not sure yet</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="message">Anything else worth knowing <span class="opt">optional</span></label>
+            <textarea id="message" name="message" rows="4"></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary" id="submitBtn">Send my audit request</button>
+          <p class="form-note" id="formNote">
+            No newsletter, no sequence, no reselling your details. One reply from a person.
+          </p>
+          <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+
+      <aside class="aside">
+        <div class="aside-card">
+          <span class="aside-k">Or reach us directly</span>
+          <p class="aside-v"><a href={`mailto:${site.email}`}>{site.email}</a></p>
+          {site.phone && (
+            <p class="aside-v"><a href={`tel:${site.phone.replace(/[^+\d]/g, '')}`}>{site.phone}</a></p>
+          )}
+          <p class="aside-sub">Based in {site.city}, {site.regionName}. Replies weekdays.</p>
+        </div>
+
+        <div class="aside-card">
+          <span class="aside-k">What the audit covers</span>
+          <ul class="aside-list">
+            <li>Map pack position from a grid of points across your area</li>
+            <li>Indexing and technical status from Google&rsquo;s own tools</li>
+            <li>Your referring domains against the three ranking above you</li>
+            <li>Search volume and cost per click for your target terms</li>
+          </ul>
+        </div>
+
+        <div class="aside-card">
+          <span class="aside-k">Service area</span>
+          <p class="aside-sub">{serviceAreas.join(' · ')}</p>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section section-mist">
+    <div class="wrap-tight">
+      <span class="eyebrow">Before you write</span>
+      <h2>Common questions</h2>
+      <div class="qa">
+        {faqs.map((f) => (
+          <div class="qa-item">
+            <h3>{f.q}</h3>
+            <div set:html={f.a} />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>
+
+<script define:vars={{ FORM_ENDPOINT, fallbackEmail: site.email }}>
+  const form = document.getElementById('auditForm');
+  const status = document.getElementById('formStatus');
+  const btn = document.getElementById('submitBtn');
+
+  const setStatus = (msg, kind) => {
+    status.textContent = msg;
+    status.dataset.kind = kind;
+  };
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+
+    const data = new FormData(form);
+    const entries = Object.fromEntries(data.entries());
+
+    if (!FORM_ENDPOINT) {
+      // No handler configured. Hand the lead to the mail client rather than
+      // claiming it was sent.
+      const body = Object.entries(entries)
+        .filter(([, v]) => String(v).trim() !== '')
+        .map(([k, v]) => `${k}: ${v}`)
+        .join('\n');
+      const subject = `Audit request - ${entries.business || entries.name || 'new enquiry'}`;
+      setStatus('Opening your email app to send this. If nothing opens, email ' + fallbackEmail + ' directly.', 'info');
+      window.location.href =
+        `mailto:${fallbackEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      return;
+    }
+
+    btn.disabled = true;
+    setStatus('Sending...', 'info');
+
+    try {
+      const res = await fetch(FORM_ENDPOINT, {
+        method: 'POST',
+        headers: { Accept: 'application/json' },
+        body: data,
+      });
+      if (!res.ok) throw new Error(`Request failed with status ${res.status}`);
+      form.hidden = true;
+      setStatus('Sent. You will get a reply from a person within two business days.', 'ok');
+    } catch (err) {
+      btn.disabled = false;
+      setStatus(
+        'That did not send. Email ' + fallbackEmail + ' and we will pick it up from there.',
+        'error',
+      );
+    }
+  });
+</script>
+
+<style>
+  .phero { background: var(--ink); color: var(--fg-on-ink); padding-block: var(--sp-6) var(--sp-8); }
+  .phero .eyebrow { color: var(--brand-lite); }
+  .phero .eyebrow::after { background: var(--rule-dark); }
+  .phero h1 { color: var(--paper); font-size: var(--step-4); max-width: 18ch; }
+  .phero .lede { color: var(--fg-on-ink-muted); }
+
+  .crumbs { margin-bottom: var(--sp-6); }
+  .crumbs ol {
+    list-style: none; margin: 0; padding: 0;
+    display: flex; flex-wrap: wrap; gap: 0.5rem;
+    font-family: var(--font-mono); font-size: 0.74rem; color: var(--fg-faint);
+  }
+  .crumbs li + li::before { content: "/"; margin-right: 0.5rem; color: var(--rule-dark); }
+  .crumbs a { color: var(--fg-on-ink-muted); text-decoration: none; }
+  .crumbs a:hover { color: var(--brand-lite); }
+
+  .contact-grid { display: grid; gap: var(--sp-7); align-items: start; }
+  @media (min-width: 940px) {
+    .contact-grid { grid-template-columns: 1.35fr 0.75fr; gap: var(--sp-8); }
+  }
+
+  .form-wrap {
+    border: 1px solid var(--rule);
+    border-radius: var(--radius-lg);
+    padding: var(--sp-6);
+    background: var(--paper);
+    box-shadow: var(--shadow-1);
+  }
+  .f-row { display: grid; gap: var(--sp-4); }
+  @media (min-width: 620px) { .f-row { grid-template-columns: 1fr 1fr; } }
+
+  .field { display: grid; gap: 0.4rem; margin-bottom: var(--sp-4); }
+  .field label {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 0.88rem;
+    letter-spacing: -0.005em;
+  }
+  .opt { font-family: var(--font-mono); font-weight: 400; font-size: 0.7rem; color: var(--fg-faint); text-transform: uppercase; letter-spacing: 0.1em; }
+  .field input, .field select, .field textarea {
+    font-family: inherit;
+    font-size: 0.98rem;
+    color: var(--fg);
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+    padding: 0.7rem 0.8rem;
+    width: 100%;
+  }
+  .field textarea { resize: vertical; }
+  .field input:focus, .field select:focus, .field textarea:focus {
+    border-color: var(--brand);
+    outline: 2px solid rgba(29, 78, 216, 0.18);
+    outline-offset: 0;
+  }
+  .hint { font-size: 0.8rem; color: var(--fg-faint); margin: 0; }
+
+  #submitBtn { margin-top: var(--sp-2); }
+  #submitBtn[disabled] { opacity: 0.6; cursor: progress; }
+  .form-note { font-size: 0.82rem; color: var(--fg-faint); margin-top: var(--sp-4); }
+  .form-status { font-size: 0.9rem; margin: var(--sp-3) 0 0; min-height: 1.2em; }
+  .form-status[data-kind='ok'] { color: var(--signal); }
+  .form-status[data-kind='error'] { color: var(--alert); }
+  .form-status[data-kind='info'] { color: var(--fg-muted); }
+
+  .aside { display: grid; gap: var(--sp-4); }
+  .aside-card {
+    border: 1px solid var(--rule);
+    border-radius: var(--radius-lg);
+    padding: var(--sp-5);
+    background: var(--mist);
+  }
+  .aside-k {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.67rem;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--fg-faint);
+    margin-bottom: var(--sp-3);
+  }
+  .aside-v { margin: 0 0 0.25rem; font-family: var(--font-display); font-weight: 600; font-size: 1rem; }
+  .aside-v a { text-decoration: none; }
+  .aside-v a:hover { text-decoration: underline; }
+  .aside-sub { font-size: 0.84rem; color: var(--fg-muted); margin: var(--sp-3) 0 0; line-height: 1.7; }
+  .aside-list { margin: 0; padding-left: 1.1rem; display: grid; gap: 0.45rem; font-size: 0.87rem; color: var(--fg-muted); }
+
+  .qa { display: grid; gap: var(--sp-5); margin-top: var(--sp-6); }
+  .qa-item h3 { font-size: var(--step-1); margin-bottom: var(--sp-2); }
+  .qa-item :global(p) { color: var(--fg-muted); margin-bottom: var(--sp-2); }
+</style>

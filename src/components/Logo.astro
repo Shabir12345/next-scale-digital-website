@@ -1,0 +1,29 @@
+---
+/* Duplicate SVG gradient ids are invalid HTML when the logo appears more than
+   once on a page (header + footer), so the id is per-instance. */
+export interface Props { size?: number; mono?: boolean }
+const { size = 40, mono = false } = Astro.props;
+const uid = `nsdGrad-${Math.random().toString(36).slice(2, 8)}`;
+const stroke = mono ? 'currentColor' : `url(#${uid})`;
+const node = mono ? 'currentColor' : '#16A34A';
+---
+<svg width={size} height={size} viewBox="0 0 200 200" fill="none" aria-hidden="true" focusable="false">
+  <path
+    d="M50 150 L150 150 L180 120 L180 80 L150 50 L50 50 L20 80 L20 120 Z"
+    stroke={stroke} stroke-width="9" stroke-linecap="round" stroke-linejoin="round"
+    fill={mono ? 'none' : 'rgba(29, 78, 216, 0.08)'} />
+  <path d="M100 50 V150 M50 100 H150" stroke={node} stroke-width="4.5" stroke-linecap="round" opacity="0.9" />
+  <circle cx="100" cy="100" r="15" fill={node} />
+  <circle cx="50" cy="100" r="5.5" fill={node} />
+  <circle cx="150" cy="100" r="5.5" fill={node} />
+  <circle cx="100" cy="50" r="5.5" fill={node} />
+  <circle cx="100" cy="150" r="5.5" fill={node} />
+  {!mono && (
+    <defs>
+      <linearGradient id={uid} x1="20" y1="100" x2="180" y2="100" gradientUnits="userSpaceOnUse">
+        <stop stop-color="#1D4ED8" />
+        <stop offset="1" stop-color="#38BDF8" />
+      </linearGradient>
+    </defs>
+  )}
+</svg>

@@ -1,0 +1,119 @@
+---
+import { site, services, nav, serviceAreas } from '../data/site';
+import Logo from './Logo.astro';
+const year = new Date().getFullYear();
+---
+
+<footer class="ftr">
+  <div class="wrap ftr-in">
+    <div class="ftr-brand">
+      <a href="/" class="ftr-mark" aria-label={`${site.name} home`}>
+        <Logo size={38} />
+        <span>Next Scale <em>Digital</em></span>
+      </a>
+      <p class="ftr-blurb">
+        Websites, local SEO and Google Ads for service businesses across Toronto
+        and York Region. Based in {site.city}, {site.region}.
+      </p>
+      <p class="ftr-contact">
+        <a href={`mailto:${site.email}`}>{site.email}</a>
+        {site.phone && <><br /><a href={`tel:${site.phone.replace(/[^+\d]/g, '')}`}>{site.phone}</a></>}
+      </p>
+    </div>
+
+    <div class="ftr-col">
+      <h2>Services</h2>
+      <ul>
+        {services.map((s) => (
+          <li><a href={`/services/${s.slug}/`}>{s.title}</a></li>
+        ))}
+      </ul>
+    </div>
+
+    <div class="ftr-col">
+      <h2>Company</h2>
+      <ul>
+        {nav.map((n) => <li><a href={n.href}>{n.label}</a></li>)}
+        <li><a href="/contact/">Contact</a></li>
+      </ul>
+    </div>
+
+    <div class="ftr-col ftr-areas">
+      <h2>Service area</h2>
+      <p class="ftr-arealist">{serviceAreas.join(' · ')}</p>
+    </div>
+  </div>
+
+  <div class="wrap ftr-base">
+    <p>© {year} {site.legalName}. All rights reserved.</p>
+    <p class="ftr-legal">
+      <a href="/privacy/">Privacy</a>
+      <a href="/terms/">Terms</a>
+    </p>
+  </div>
+</footer>
+
+<style>
+  .ftr {
+    background: var(--ink);
+    color: var(--fg-on-ink-muted);
+    padding-top: var(--sp-8);
+    margin-top: var(--sp-9);
+    font-size: 0.93rem;
+  }
+  .ftr-in {
+    display: grid;
+    grid-template-columns: 1.7fr 1fr 1fr 1.2fr;
+    gap: var(--sp-6);
+    padding-bottom: var(--sp-7);
+  }
+  .ftr-mark {
+    display: flex; align-items: center; gap: 0.6rem;
+    color: var(--paper); text-decoration: none;
+    font-family: var(--font-display); font-weight: 700;
+    font-size: 1.02rem; letter-spacing: -0.028em;
+    margin-bottom: var(--sp-4);
+  }
+  .ftr-mark em { font-style: normal; font-weight: 500; color: var(--fg-on-ink-muted); }
+  .ftr-blurb { max-width: 34ch; margin-bottom: var(--sp-4); }
+  .ftr-contact a { color: var(--brand-lite); text-decoration: none; }
+  .ftr-contact a:hover { text-decoration: underline; }
+
+  .ftr-col h2 {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--fg-faint);
+    margin-bottom: var(--sp-4);
+  }
+  .ftr-col ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.55rem; }
+  .ftr-col a { color: var(--fg-on-ink-muted); text-decoration: none; }
+  .ftr-col a:hover { color: var(--paper); }
+
+  .ftr-arealist { font-size: 0.84rem; line-height: 1.75; color: var(--fg-faint); max-width: none; }
+
+  .ftr-base {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--sp-4);
+    padding-block: var(--sp-5);
+    border-top: 1px solid var(--rule-dark);
+    font-size: 0.85rem;
+    color: var(--fg-faint);
+  }
+  .ftr-base p { margin: 0; }
+  .ftr-legal { display: flex; gap: var(--sp-5); }
+  .ftr-legal a { color: var(--fg-faint); text-decoration: none; }
+  .ftr-legal a:hover { color: var(--paper); }
+
+  @media (max-width: 900px) {
+    .ftr-in { grid-template-columns: 1fr 1fr; }
+    .ftr-brand, .ftr-areas { grid-column: 1 / -1; }
+  }
+  @media (max-width: 520px) {
+    .ftr-in { grid-template-columns: 1fr; }
+  }
+</style>

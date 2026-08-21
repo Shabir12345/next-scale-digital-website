@@ -1,0 +1,116 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../data/site';
+
+const path = '/privacy/';
+const updated = '21 August 2026';
+---
+
+<Base
+  title="Privacy Policy | Next Scale Digital"
+  description="What Next Scale Digital collects when you use this website or contact us, why, how long it is kept, and how to have it deleted."
+  path={path}
+  breadcrumbs={[{ name: 'Home', href: '/' }, { name: 'Privacy', href: path }]}
+>
+  <section class="legal-hero">
+    <div class="wrap-tight">
+      <span class="eyebrow">Legal</span>
+      <h1>Privacy policy</h1>
+      <p class="legal-date">Last updated {updated}</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap-tight legal">
+      <h2>The short version</h2>
+      <p>
+        This is a static website. It does not set advertising cookies, it does not
+        build a profile of you, and it does not sell anything to anyone. If you fill
+        in the contact form, the details go to us so we can reply to you, and that
+        is all they are used for.
+      </p>
+
+      <h2>What we collect</h2>
+      <p>
+        <strong>When you contact us.</strong> The name, business name, email address,
+        phone number, website address, service area and message you type into the form
+        on the contact page, or send to us by email.
+      </p>
+      <p>
+        <strong>When you browse.</strong> Standard server logs held by our host, which
+        include IP address, browser type and the pages requested. If website analytics
+        are running, they record aggregate visit data. We do not use analytics to
+        identify individual people.
+      </p>
+
+      <h2>Why we hold it</h2>
+      <p>
+        To reply to your enquiry, to run any audit you have asked for, and to deliver
+        services if you become a client. We do not use your details for unrelated
+        marketing, we do not add you to a mailing list without you asking, and we do
+        not sell or rent them to anybody.
+      </p>
+
+      <h2>Who else sees it</h2>
+      <p>
+        Our email provider and our website host, as a necessary part of delivering
+        the message and serving the page. If you become a client, the platforms
+        needed to do the work, such as Google Ads or Google Search Console, using
+        accounts held in your name.
+      </p>
+      <p>
+        We will disclose information where the law requires it. Otherwise, no.
+      </p>
+
+      <h2>How long we keep it</h2>
+      <p>
+        Enquiries that do not become work are deleted within two years. Client
+        records are held for as long as the engagement runs and for seven years
+        afterwards, which is the period Canadian business records are normally
+        retained for.
+      </p>
+
+      <h2>Your rights</h2>
+      <p>
+        Under Canadian privacy law you can ask what personal information we hold about
+        you, ask for it to be corrected, and ask for it to be deleted. Email
+        <a href={`mailto:${site.email}`}>{site.email}</a> and we will action it within
+        thirty days.
+      </p>
+
+      <h2>Cookies</h2>
+      <p>
+        This site sets no cookies of its own. Fonts are loaded from Google Fonts,
+        which means your browser makes a request to Google&rsquo;s servers when a page
+        loads. If analytics are enabled, they may set a first-party cookie to
+        distinguish repeat visits. Nothing here is used for advertising.
+      </p>
+
+      <h2>Changes</h2>
+      <p>
+        If this policy changes, the date at the top changes with it. Material changes
+        affecting existing clients will be sent by email rather than left here to be
+        discovered.
+      </p>
+
+      <h2>Contact</h2>
+      <p>
+        Questions about any of this go to
+        <a href={`mailto:${site.email}`}>{site.email}</a>. We are based in {site.city},
+        {site.regionName}, {site.countryName}.
+      </p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .legal-hero { background: var(--ink); color: var(--fg-on-ink); padding-block: var(--sp-7); }
+  .legal-hero .eyebrow { color: var(--brand-lite); }
+  .legal-hero .eyebrow::after { background: var(--rule-dark); }
+  .legal-hero h1 { color: var(--paper); font-size: var(--step-3); margin-bottom: var(--sp-3); }
+  .legal-date { font-family: var(--font-mono); font-size: 0.76rem; color: var(--fg-faint); margin: 0; }
+
+  .legal h2 { font-size: var(--step-1); margin-top: var(--sp-7); margin-bottom: var(--sp-3); }
+  .legal h2:first-child { margin-top: 0; }
+  .legal p { margin-bottom: var(--sp-4); }
+</style>

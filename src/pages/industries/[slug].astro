@@ -1,0 +1,230 @@
+---
+import Base from '../../layouts/Base.astro';
+import CTA from '../../components/CTA.astro';
+import FAQ from '../../components/FAQ.astro';
+import { site, services } from '../../data/site';
+import { industries } from '../../data/industries';
+import { faqSchema } from '../../lib/schema';
+
+export function getStaticPaths() {
+  return industries.map((i) => ({ params: { slug: i.slug }, props: { industry: i } }));
+}
+
+const { industry } = Astro.props;
+const path = `/industries/${industry.slug}/`;
+const pageUrl = new URL(path, site.url).href;
+const others = industries.filter((i) => i.slug !== industry.slug);
+
+const breadcrumbs = [
+  { name: 'Home', href: '/' },
+  { name: 'Industries', href: '/industries/' },
+  { name: industry.nav, href: path },
+];
+---
+
+<Base
+  title={industry.metaTitle}
+  description={industry.metaDescription}
+  path={path}
+  breadcrumbs={breadcrumbs}
+  schema={[faqSchema(industry.faqs, pageUrl)]}
+>
+  <section class="phero">
+    <div class="wrap">
+      <nav class="crumbs" aria-label="Breadcrumb">
+        <ol>
+          {breadcrumbs.map((b, i) => (
+            <li>
+              {i < breadcrumbs.length - 1 ? <a href={b.href}>{b.name}</a> : <span aria-current="page">{b.name}</span>}
+            </li>
+          ))}
+        </ol>
+      </nav>
+      <span class="eyebrow">Industry</span>
+      <h1>{industry.h1}</h1>
+      <p class="lede">{industry.thesis}</p>
+      <div class="btn-row">
+        <a href="/contact/" class="btn btn-primary">Get a free audit</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <span class="eyebrow">How search behaves here</span>
+      <h2>The shape of the demand</h2>
+      <p class="lede">
+        These are the facts that decide the plan. Change any one of them and the
+        right first move changes with it.
+      </p>
+
+      <dl class="facts">
+        {industry.behaviour.map((b) => (
+          <div class="fact">
+            <dt>{b.label}</dt>
+            <dd>{b.value}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  </section>
+
+  <section class="section section-mist">
+    <div class="wrap">
+      <span class="eyebrow">Where the budget should go</span>
+      <h2>Priorities, in order</h2>
+      <ol class="prio">
+        {industry.priorities.map((p, i) => (
+          <li>
+            <span class="prio-n num">{String(i + 1).padStart(2, '0')}</span>
+            <div>
+              <h3>{p.title}</h3>
+              <p>{p.detail}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section section-ink">
+    <div class="wrap-tight">
+      <span class="eyebrow">What goes wrong</span>
+      <h2>Mistakes we see repeatedly in this category</h2>
+      <ul class="miss">
+        {industry.mistakes.map((m) => <li>{m}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <span class="eyebrow">Services</span>
+      <h2>What we would run for a business like this</h2>
+      <div class="svc-grid">
+        {services.map((s) => (
+          <a class="svc" href={`/services/${s.slug}/`}>
+            <h3>{s.title}</h3>
+            <p>{s.summary}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <FAQ items={industry.faqs} heading={`${industry.nav}: what owners ask`} />
+
+  <section class="section-sm section-mist">
+    <div class="wrap">
+      <span class="eyebrow">Other industries</span>
+      <div class="other-grid">
+        {others.map((o) => (
+          <a class="other" href={`/industries/${o.slug}/`}>
+            <h3>{o.nav}</h3>
+            <p>{o.summary}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CTA />
+</Base>
+
+<style>
+  .phero { background: var(--ink); color: var(--fg-on-ink); padding-block: var(--sp-6) var(--sp-8); }
+  .phero .eyebrow { color: var(--brand-lite); }
+  .phero .eyebrow::after { background: var(--rule-dark); }
+  .phero h1 { color: var(--paper); font-size: var(--step-4); max-width: 20ch; }
+  .phero .lede { color: var(--fg-on-ink-muted); margin-bottom: var(--sp-6); }
+
+  .crumbs { margin-bottom: var(--sp-6); }
+  .crumbs ol {
+    list-style: none; margin: 0; padding: 0;
+    display: flex; flex-wrap: wrap; gap: 0.5rem;
+    font-family: var(--font-mono); font-size: 0.74rem; color: var(--fg-faint);
+  }
+  .crumbs li + li::before { content: "/"; margin-right: 0.5rem; color: var(--rule-dark); }
+  .crumbs a { color: var(--fg-on-ink-muted); text-decoration: none; }
+  .crumbs a:hover { color: var(--brand-lite); }
+
+  .facts { margin: var(--sp-6) 0 0; display: grid; gap: 0; border-top: 1px solid var(--rule); }
+  .fact {
+    display: grid; gap: var(--sp-2);
+    padding-block: var(--sp-4);
+    border-bottom: 1px solid var(--rule);
+  }
+  .fact dt {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--fg-faint);
+  }
+  .fact dd { margin: 0; font-size: 1rem; }
+  @media (min-width: 700px) {
+    .fact { grid-template-columns: 15rem 1fr; gap: var(--sp-5); align-items: baseline; }
+  }
+
+  .prio { list-style: none; margin: var(--sp-6) 0 0; padding: 0; display: grid; gap: var(--sp-4); }
+  .prio li {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--sp-4);
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius-lg);
+    padding: var(--sp-5);
+    align-items: start;
+  }
+  .prio-n { font-size: 0.78rem; color: var(--fg-faint); padding-top: 0.35rem; }
+  .prio h3 { font-size: 1.06rem; margin-bottom: var(--sp-2); }
+  .prio p { margin: 0; color: var(--fg-muted); font-size: 0.93rem; }
+
+  .miss { margin: var(--sp-6) 0 0; padding: 0; list-style: none; display: grid; gap: 0; }
+  .miss li {
+    padding: var(--sp-4) 0 var(--sp-4) var(--sp-6);
+    border-bottom: 1px solid var(--rule-dark);
+    color: var(--fg-on-ink-muted);
+    position: relative;
+  }
+  .miss li:first-child { border-top: 1px solid var(--rule-dark); }
+  .miss li::before {
+    content: "\00D7";
+    position: absolute;
+    left: 0.4rem; top: var(--sp-4);
+    color: var(--alert-lite);
+    font-size: 1.1rem;
+    line-height: 1.5;
+  }
+
+  .svc-grid {
+    display: grid; gap: var(--sp-4); margin-top: var(--sp-6);
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  }
+  .svc {
+    display: block;
+    padding: var(--sp-5);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius-lg);
+    text-decoration: none; color: inherit; background: var(--paper);
+    transition: border-color 150ms ease;
+  }
+  .svc:hover { border-color: var(--brand); color: inherit; }
+  .svc h3 { margin: 0 0 var(--sp-2); font-size: 1.02rem; }
+  .svc p { margin: 0; color: var(--fg-muted); font-size: 0.9rem; }
+
+  .other-grid {
+    display: grid; gap: var(--sp-4); margin-top: var(--sp-5);
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  }
+  .other {
+    display: block; background: var(--paper);
+    border: 1px solid var(--rule); border-radius: var(--radius-lg);
+    padding: var(--sp-4) var(--sp-5); text-decoration: none; color: inherit;
+    transition: border-color 150ms ease;
+  }
+  .other:hover { border-color: var(--brand); color: inherit; }
+  .other h3 { font-size: 1rem; margin-bottom: 0.3rem; }
+  .other p { margin: 0; font-size: 0.87rem; color: var(--fg-muted); }
+</style>

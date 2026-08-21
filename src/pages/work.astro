@@ -1,0 +1,160 @@
+---
+import Base from '../layouts/Base.astro';
+import CTA from '../components/CTA.astro';
+import { site, work } from '../data/site';
+
+const path = '/work/';
+
+const breadcrumbs = [
+  { name: 'Home', href: '/' },
+  { name: 'Work', href: path },
+];
+
+/* Detail is deliberately about scope, not outcomes. Client ranking and revenue data
+   is theirs. If a client later agrees to a written case study, it goes here with
+   their numbers and their name on it. */
+const detail: Record<string, string> = {
+  'iFAST Roadside':
+    'Website build, Google Business Profile work and call tracking for a Toronto roadside assistance operator. Emergency search category, so the work concentrated on map pack position and on making the phone number reachable in one tap from any page.',
+  'Golden North Mobile Tires':
+    'Website and local search for a mobile tire service covering the GTA. Mobile service is a distinct search from a shop visit, so the site is structured around where the van goes rather than where a building sits.',
+  'GTA Autobody':
+    'Website and Google Ads for a Toronto collision repair shop. Paid search split by service, because a full respray and a small panel repair cannot share a break-even.',
+  'Boss Tire':
+    'Website rebuild, Google Ads and local search for a Scarborough tire shop. Sharply seasonal category with two peaks, so the calendar drives the plan as much as the keyword list does.',
+  'Sadozai Renovations':
+    'Websites for a GTA renovation business across several service lines. Project-type pages rather than one services page, because basement finishing and kitchen renovation are different searches with different budgets.',
+  'Nova Vacation Homes':
+    'AI voice agent and booking intake for a short-term rental operator. Inquiry volume is high and response speed decides the booking, so the agent handles qualification and writes a structured record rather than a transcript.',
+  'Celebration Finds':
+    'E-commerce site, SEO and content for an event favours and gifts business in Aurora. Product-led search rather than local service search, and the only retail brand on this list.',
+};
+---
+
+<Base
+  title="Our Work | GTA Service Business Clients | Next Scale Digital"
+  description="The service businesses Next Scale Digital builds and ranks for across the GTA: roadside assistance, collision repair, tire service, renovation, short-term rentals and e-commerce."
+  path={path}
+  breadcrumbs={breadcrumbs}
+>
+  <section class="phero">
+    <div class="wrap">
+      <nav class="crumbs" aria-label="Breadcrumb">
+        <ol>
+          <li><a href="/">Home</a></li>
+          <li><span aria-current="page">Work</span></li>
+        </ol>
+      </nav>
+      <span class="eyebrow">Work</span>
+      <h1>Seven clients, nine sites, one region</h1>
+      <p class="lede">
+        Every business below is a current or recent engagement. What each one is and
+        what we built for them is published here. What we are not publishing is their
+        ranking and revenue data, because it belongs to them and not to our marketing.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="wk-list">
+        {work.map((w, i) => (
+          <article class="wk">
+            <div class="wk-n num">{String(i + 1).padStart(2, '0')}</div>
+            <div class="wk-body">
+              <h2>{w.name}</h2>
+              <p class="wk-meta">
+                <span>{w.sector}</span>
+                <span>{w.place}</span>
+              </p>
+              <p class="wk-detail">{detail[w.name]}</p>
+              <ul class="wk-tags">
+                {w.built.split(', ').map((b) => <li>{b}</li>)}
+              </ul>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-mist">
+    <div class="wrap-tight">
+      <span class="eyebrow">On case studies</span>
+      <h2>Why there are no percentages on this page</h2>
+      <p>
+        An agency case study claiming a 340% traffic increase is usually measuring
+        from a month when the site had almost no traffic, on a metric the client
+        never asked about. It is easy to produce and it predicts nothing about
+        what will happen to your business.
+      </p>
+      <p>
+        What we can tell you is what we built and why we built it that way, which is
+        on this page. What we can show you is your own numbers, which is what the free
+        audit is. Any client who wants a written case study with their real figures
+        gets one, published with their name on it and their approval on the copy.
+      </p>
+    </div>
+  </section>
+
+  <CTA
+    heading="See your own numbers first"
+    body="Rather than reading about someone else's results, get the measurement run on your business. Map position across your service area, indexing status, and the authority gap between you and whoever is ranking above you."
+  />
+</Base>
+
+<style>
+  .phero { background: var(--ink); color: var(--fg-on-ink); padding-block: var(--sp-6) var(--sp-8); }
+  .phero .eyebrow { color: var(--brand-lite); }
+  .phero .eyebrow::after { background: var(--rule-dark); }
+  .phero h1 { color: var(--paper); font-size: var(--step-4); max-width: 16ch; }
+  .phero .lede { color: var(--fg-on-ink-muted); }
+
+  .crumbs { margin-bottom: var(--sp-6); }
+  .crumbs ol {
+    list-style: none; margin: 0; padding: 0;
+    display: flex; flex-wrap: wrap; gap: 0.5rem;
+    font-family: var(--font-mono); font-size: 0.74rem; color: var(--fg-faint);
+  }
+  .crumbs li + li::before { content: "/"; margin-right: 0.5rem; color: var(--rule-dark); }
+  .crumbs a { color: var(--fg-on-ink-muted); text-decoration: none; }
+  .crumbs a:hover { color: var(--brand-lite); }
+
+  .wk-list { display: grid; gap: 0; border-top: 1px solid var(--rule); }
+  .wk {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--sp-5);
+    padding-block: var(--sp-6);
+    border-bottom: 1px solid var(--rule);
+    align-items: start;
+  }
+  .wk-n { font-size: 0.8rem; color: var(--fg-faint); padding-top: 0.5rem; min-width: 2.2rem; }
+  .wk h2 { font-size: var(--step-2); margin-bottom: var(--sp-3); }
+  .wk-meta {
+    display: flex; flex-wrap: wrap; gap: 0.9rem;
+    font-family: var(--font-mono);
+    font-size: 0.73rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--fg-faint);
+    margin-bottom: var(--sp-4);
+  }
+  .wk-meta span + span { position: relative; padding-left: 0.9rem; }
+  .wk-meta span + span::before {
+    content: ""; position: absolute; left: 0; top: 50%;
+    width: 3px; height: 3px; border-radius: 50%;
+    background: var(--rule); transform: translateY(-50%);
+  }
+  .wk-detail { color: var(--fg-muted); margin-bottom: var(--sp-4); }
+  .wk-tags { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.4rem 0.5rem; }
+  .wk-tags li {
+    font-family: var(--font-mono);
+    font-size: 0.71rem;
+    color: var(--fg-muted);
+    background: var(--mist);
+    border: 1px solid var(--mist-2);
+    border-radius: 100px;
+    padding: 0.25rem 0.7rem;
+  }
+</style>

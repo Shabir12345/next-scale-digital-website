@@ -1,0 +1,226 @@
+---
+import Base from '../layouts/Base.astro';
+import CTA from '../components/CTA.astro';
+import { site, work } from '../data/site';
+
+const path = '/about/';
+const pageUrl = new URL(path, site.url).href;
+
+const breadcrumbs = [
+  { name: 'Home', href: '/' },
+  { name: 'About', href: path },
+];
+
+/* Person schema matters here. A named, describable operator is what search engines
+   and AI answer engines use to decide whether an agency is a real entity. */
+const person = {
+  '@type': 'Person',
+  '@id': `${site.url}/#shabir`,
+  name: 'Shabir Majeed',
+  jobTitle: 'Founder',
+  worksFor: { '@id': `${site.url}/#organization` },
+  alumniOf: { '@type': 'CollegeOrUniversity', name: 'University of Kent' },
+  knowsAbout: [
+    'Local SEO',
+    'Google Business Profile optimization',
+    'Google Ads management',
+    'Website development',
+    'AI voice agents',
+  ],
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: site.city,
+    addressRegion: site.region,
+    addressCountry: site.country,
+  },
+};
+
+const principles = [
+  {
+    t: 'Measure before proposing',
+    d: 'Every engagement opens with numbers pulled from Google’s own tools and a paid SERP API. If the data says the plan will not work, the plan changes before you have paid for it.',
+  },
+  {
+    t: 'Name the ceiling out loud',
+    d: 'Some rankings are not available to a business at its current authority. An agency that knows this and sells the content plan anyway is charging you for eight months of finding out.',
+  },
+  {
+    t: 'Free levers first',
+    d: 'Google Business Profile, tracked phone numbers, page titles and schema cost time rather than money, and they usually move before anything you pay for does.',
+  },
+  {
+    t: 'Publish in waves',
+    d: 'Forty pages in one week is how a site gets ignored. Core pages, confirmed indexed, then expansion on a base that already works.',
+  },
+  {
+    t: 'Report what pays the bills',
+    d: 'Calls, forms and booked jobs at the top of the report. Impressions and average position exist further down, where they belong.',
+  },
+  {
+    t: 'You own everything',
+    d: 'Repository, domain, ad account, Business Profile, analytics. All in your name from day one. Leaving should cost you nothing but notice.',
+  },
+];
+---
+
+<Base
+  title="About Next Scale Digital | A GTA Search Marketing Agency"
+  description="Next Scale Digital is a small search marketing agency in Aurora, Ontario, working with service businesses across the GTA. How we work, what we measure, and what we will not sell you."
+  path={path}
+  breadcrumbs={breadcrumbs}
+  schema={[person]}
+>
+  <section class="phero">
+    <div class="wrap">
+      <nav class="crumbs" aria-label="Breadcrumb">
+        <ol>
+          <li><a href="/">Home</a></li>
+          <li><span aria-current="page">About</span></li>
+        </ol>
+      </nav>
+      <span class="eyebrow">About</span>
+      <h1>A small agency that shows its working</h1>
+      <p class="lede">
+        Next Scale Digital is based in {site.city}, {site.regionName}, and works with
+        service businesses across Toronto and York Region. Seven active clients,
+        nine sites shipped, and a preference for telling people what the data says
+        rather than what they hoped it would.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap-tight">
+      <span class="eyebrow">Who runs it</span>
+      <h2>Shabir Majeed</h2>
+      <p>
+        I started Next Scale Digital after several years in sales and a longer stretch
+        building businesses directly, including an e-commerce brand and a share in a
+        coffee shop. Those are the reason this agency is built the way it is: I have
+        been the person on the other side of the invoice, waiting to find out whether
+        a marketing spend did anything.
+      </p>
+      <p>
+        Most of what I do now is measurement and building. The measurement runs through
+        Google Search Console, Google Analytics, Business Profile data and a paid SERP
+        API, so client reporting is checkable rather than asserted. The building is
+        websites, Google Ads accounts, and AI agents that handle the calls a small team
+        cannot get to.
+      </p>
+      <p>
+        I have a degree in Business and Management from the University of Kent, which is
+        less relevant to any of this than the years of running things that came after it.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section-mist">
+    <div class="wrap">
+      <span class="eyebrow">How we work</span>
+      <h2>Six things we hold to</h2>
+      <div class="prin-grid">
+        {principles.map((p) => (
+          <div class="prin">
+            <h3>{p.t}</h3>
+            <p>{p.d}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-ink">
+    <div class="wrap-tight">
+      <span class="eyebrow">What we will not do</span>
+      <h2>Things you will not hear from us</h2>
+      <ul class="wont">
+        <li>A guarantee of page one, or of the map pack. Proximity is a ranking factor nobody controls.</li>
+        <li>A percentage of ad spend as our fee. It pays us more for spending more of your money.</li>
+        <li>Results from other clients used as a forecast for yours. Different category, different authority, different answer.</li>
+        <li>Testimonials from people who do not exist. If a quote is on this site, a real client said it.</li>
+        <li>A recommendation to buy a service that the numbers say will not clear break-even.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <span class="eyebrow">Current roster</span>
+      <h2>Who we work with now</h2>
+      <p class="lede">
+        Client performance data stays private unless a client asks us to publish it.
+        The list itself is not a secret.
+      </p>
+      <ul class="roster">
+        {work.map((w) => (
+          <li>
+            <strong>{w.name}</strong>
+            <span class="roster-meta">{w.sector} &middot; {w.place}</span>
+          </li>
+        ))}
+      </ul>
+      <p class="roster-note"><a href="/work/">More about what we built for each</a></p>
+    </div>
+  </section>
+
+  <CTA
+    heading="Start with the measurement"
+    body="The free audit is the same first step every paying engagement gets. If it turns up nothing worth fixing, that is a useful answer too, and it costs you nothing to find out."
+  />
+</Base>
+
+<style>
+  .phero { background: var(--ink); color: var(--fg-on-ink); padding-block: var(--sp-6) var(--sp-8); }
+  .phero .eyebrow { color: var(--brand-lite); }
+  .phero .eyebrow::after { background: var(--rule-dark); }
+  .phero h1 { color: var(--paper); font-size: var(--step-4); max-width: 18ch; }
+  .phero .lede { color: var(--fg-on-ink-muted); }
+
+  .crumbs { margin-bottom: var(--sp-6); }
+  .crumbs ol {
+    list-style: none; margin: 0; padding: 0;
+    display: flex; flex-wrap: wrap; gap: 0.5rem;
+    font-family: var(--font-mono); font-size: 0.74rem; color: var(--fg-faint);
+  }
+  .crumbs li + li::before { content: "/"; margin-right: 0.5rem; color: var(--rule-dark); }
+  .crumbs a { color: var(--fg-on-ink-muted); text-decoration: none; }
+  .crumbs a:hover { color: var(--brand-lite); }
+
+  .prin-grid {
+    display: grid; gap: var(--sp-4); margin-top: var(--sp-6);
+    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  }
+  .prin {
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius-lg);
+    padding: var(--sp-5);
+  }
+  .prin h3 { font-size: 1.04rem; margin-bottom: var(--sp-2); }
+  .prin p { margin: 0; font-size: 0.92rem; color: var(--fg-muted); }
+
+  .wont { list-style: none; margin: var(--sp-6) 0 0; padding: 0; }
+  .wont li {
+    position: relative;
+    padding: var(--sp-4) 0 var(--sp-4) var(--sp-6);
+    border-bottom: 1px solid var(--rule-dark);
+    color: var(--fg-on-ink-muted);
+  }
+  .wont li:first-child { border-top: 1px solid var(--rule-dark); }
+  .wont li::before {
+    content: "\00D7";
+    position: absolute; left: 0.4rem; top: var(--sp-4);
+    color: var(--alert-lite); font-size: 1.1rem; line-height: 1.5;
+  }
+
+  .roster { list-style: none; margin: var(--sp-6) 0 0; padding: 0; display: grid; gap: 0; border-top: 1px solid var(--rule); }
+  .roster li {
+    display: flex; flex-wrap: wrap; gap: var(--sp-3);
+    align-items: baseline; justify-content: space-between;
+    padding-block: var(--sp-4);
+    border-bottom: 1px solid var(--rule);
+  }
+  .roster strong { font-family: var(--font-display); font-size: 1.02rem; }
+  .roster-meta { font-family: var(--font-mono); font-size: 0.74rem; color: var(--fg-faint); }
+  .roster-note { margin-top: var(--sp-5); font-family: var(--font-display); font-weight: 600; }
+</style>

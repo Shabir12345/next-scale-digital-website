@@ -1,0 +1,107 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../data/site';
+
+const path = '/terms/';
+const updated = '21 August 2026';
+---
+
+<Base
+  title="Terms of Use | Next Scale Digital"
+  description="Terms covering the use of the Next Scale Digital website, including what the free audit is and is not, and how client engagements are governed."
+  path={path}
+  breadcrumbs={[{ name: 'Home', href: '/' }, { name: 'Terms', href: path }]}
+>
+  <section class="legal-hero">
+    <div class="wrap-tight">
+      <span class="eyebrow">Legal</span>
+      <h1>Terms of use</h1>
+      <p class="legal-date">Last updated {updated}</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap-tight legal">
+      <h2>What these cover</h2>
+      <p>
+        These terms cover your use of nextscaledigital.com. They do not govern client
+        work. Every engagement runs under its own written agreement, and where that
+        agreement and this page disagree, the agreement wins.
+      </p>
+
+      <h2>The content on this site</h2>
+      <p>
+        The articles and service pages here are general information about search
+        marketing. They are written from work done for businesses in the Greater
+        Toronto Area and they may not apply to your situation. Nothing on this site
+        is a guarantee of a search ranking, a lead volume or a revenue outcome.
+      </p>
+      <p>
+        Search engines change how they rank, competitors change what they do, and
+        neither is under our control or anyone else&rsquo;s. Treat any figure on this site
+        as a description of the past rather than a forecast.
+      </p>
+
+      <h2>The free audit</h2>
+      <p>
+        The audit offered on the contact page is free and carries no obligation on
+        either side. Requesting one does not create a client relationship, and we may
+        decline to run one where the business is outside what we can usefully help with.
+      </p>
+      <p>
+        The report is provided as-is, based on data available at the time it is run.
+        Ranking and search volume data comes from third-party sources and from Google&rsquo;s
+        own tools, and can change day to day. You are free to use the report however you
+        like, including taking it to another agency.
+      </p>
+
+      <h2>Ownership</h2>
+      <p>
+        The text, design and code of this site belong to {site.legalName}. Client names
+        and marks appearing on it belong to those clients and are used to describe work
+        we performed.
+      </p>
+      <p>
+        You may quote from the articles with attribution and a link. You may not
+        republish a page in full.
+      </p>
+
+      <h2>Links out</h2>
+      <p>
+        Where this site links to somewhere else, we do not control what is on the other
+        end and are not responsible for it.
+      </p>
+
+      <h2>Liability</h2>
+      <p>
+        This site is provided without warranty. To the extent the law allows,
+        {site.legalName} is not liable for loss arising from use of, or reliance on,
+        information published here. Client engagements carry their own liability terms,
+        agreed in writing.
+      </p>
+
+      <h2>Governing law</h2>
+      <p>
+        These terms are governed by the laws of the Province of Ontario and the federal
+        laws of Canada that apply in it.
+      </p>
+
+      <h2>Contact</h2>
+      <p>
+        Questions go to <a href={`mailto:${site.email}`}>{site.email}</a>.
+      </p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .legal-hero { background: var(--ink); color: var(--fg-on-ink); padding-block: var(--sp-7); }
+  .legal-hero .eyebrow { color: var(--brand-lite); }
+  .legal-hero .eyebrow::after { background: var(--rule-dark); }
+  .legal-hero h1 { color: var(--paper); font-size: var(--step-3); margin-bottom: var(--sp-3); }
+  .legal-date { font-family: var(--font-mono); font-size: 0.76rem; color: var(--fg-faint); margin: 0; }
+
+  .legal h2 { font-size: var(--step-1); margin-top: var(--sp-7); margin-bottom: var(--sp-3); }
+  .legal h2:first-child { margin-top: 0; }
+  .legal p { margin-bottom: var(--sp-4); }
+</style>

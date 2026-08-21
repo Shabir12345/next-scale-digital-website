@@ -1,0 +1,395 @@
+---
+import Base from '../layouts/Base.astro';
+import GeoGrid from '../components/GeoGrid.astro';
+import CTA from '../components/CTA.astro';
+import FAQ from '../components/FAQ.astro';
+import { services, work, site } from '../data/site';
+import { faqSchema } from '../lib/schema';
+
+const path = '/';
+const pageUrl = new URL(path, site.url).href;
+
+const faqs = [
+  {
+    q: 'How long before this shows up as phone calls?',
+    a: '<p>Google Business Profile work moves first. Categories, services and photos can change what you rank for inside two to four weeks, because you are editing a listing Google already trusts rather than asking it to trust a new page.</p><p>Website and content work is slower. Expect three to six months before new pages hold position, longer in a category with entrenched competitors. Anyone promising page one in thirty days is selling you something else.</p>',
+  },
+  {
+    q: 'We already have a website. Does it have to be replaced?',
+    a: '<p>Usually not. Most sites we look at are losing calls to three or four fixable things: no tracked phone number, service pages that never name a city, missing schema, and a Google Business Profile nobody has touched since setup.</p><p>The audit tells you which it is. A rebuild only gets recommended when the platform itself is the ceiling.</p>',
+  },
+  {
+    q: 'What does the free audit actually include?',
+    a: '<p>Your map pack position measured from a grid of points across your service area, not from one city-centre check. Your indexing and technical status pulled from Google&rsquo;s own tools. Your referring domain count next to the three competitors ranking above you. And the search volume for the terms you are trying to win, with the cost per click beside it.</p><p>You keep the report whether or not you hire us.</p>',
+  },
+  {
+    q: 'Do you lock clients into long contracts?',
+    a: '<p>No. Retainers run month to month after the initial term, and the initial term exists so there is enough runway for the work to be measurable. If you leave, the website, the ad account, the Google Business Profile and the tracking all stay in your name.</p>',
+  },
+  {
+    q: 'Do you work with businesses outside the GTA?',
+    a: '<p>The local SEO work is built around York Region and Toronto, because knowing which suburbs actually convert is most of the value. Website builds, Google Ads and AI voice agents are not location dependent and we run those anywhere in Canada.</p>',
+  },
+];
+
+const industries = [
+  { name: 'Roadside assistance and towing', note: 'Emergency intent, phone-first, decided in under a minute' },
+  { name: 'Auto body and collision', note: 'High ticket, insurance-driven, long consideration' },
+  { name: 'Tire sales and service', note: 'Sharply seasonal, two peaks a year' },
+  { name: 'Renovation and contracting', note: 'Trust-led, portfolio matters more than price' },
+  { name: 'Event and wedding services', note: 'Visual, booked months ahead, referral heavy' },
+  { name: 'Short-term rentals', note: 'Inquiry volume high, response speed decides the booking' },
+];
+
+const steps = [
+  {
+    n: '01',
+    t: 'Measure',
+    d: 'We pull your rankings, your indexing status, your backlink profile and your competitors before proposing anything. Most of it comes from Google&rsquo;s own data and a paid SERP API, so the numbers are checkable.',
+  },
+  {
+    n: '02',
+    t: 'Find the ceiling',
+    d: 'Some rankings are not available at your current authority, and saying so early is cheaper than finding out in month eight. We tell you which terms are reachable this year and which are not.',
+  },
+  {
+    n: '03',
+    t: 'Fix the free things first',
+    d: 'Google Business Profile, tracked phone numbers, schema, page titles. These cost nothing but time and they move before any content does.',
+  },
+  {
+    n: '04',
+    t: 'Build and publish',
+    d: 'Pages go out in waves, not all at once. Core service pages first, indexed and confirmed in Search Console, then expansion on top of a base that is already working.',
+  },
+  {
+    n: '05',
+    t: 'Report in your language',
+    d: 'Calls, forms, booked jobs. Position and impressions are in there, but they are not the headline, because nobody pays a mortgage with impressions.',
+  },
+];
+---
+
+<Base
+  title="Local SEO & Web Design for GTA Service Businesses | Next Scale Digital"
+  description="Next Scale Digital builds websites, runs local SEO and manages Google Ads for service businesses across Toronto and York Region. Start with a free map-pack audit of your service area."
+  path={path}
+  schema={[faqSchema(faqs, pageUrl)]}
+>
+  <section class="hero">
+    <div class="wrap hero-in">
+      <div class="hero-copy">
+        <span class="eyebrow">Local search &middot; Toronto &amp; York Region</span>
+        <h1>You don&rsquo;t have one Google ranking. You have a different one for every corner of your service area.</h1>
+        <p class="lede">
+          Next Scale Digital builds and ranks websites for service businesses across the GTA.
+          We measure your map position from every neighbourhood you cover, then fix what is
+          keeping you out of the three results that get the calls.
+        </p>
+        <div class="btn-row">
+          <a href="/contact/" class="btn btn-primary">Get a free audit</a>
+          <a href="/work/" class="btn btn-ghost">See the work</a>
+        </div>
+        <p class="hero-fine">Free, no obligation, and you keep the report.</p>
+      </div>
+
+      <div class="hero-fig">
+        <GeoGrid />
+      </div>
+    </div>
+  </section>
+
+  <section class="section-sm strip">
+    <div class="wrap strip-in">
+      <p class="strip-lead">
+        A small GTA agency working with seven service businesses, nine sites shipped.
+      </p>
+      <ul class="strip-list">
+        <li>Roadside &amp; towing</li>
+        <li>Collision repair</li>
+        <li>Tire service</li>
+        <li>Renovation</li>
+        <li>Events</li>
+        <li>Short-term rentals</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <span class="eyebrow">What we do</span>
+      <h2>Four services, one job: more booked work</h2>
+      <p class="lede">
+        Most clients start with one and add the next once the first is paying for itself.
+      </p>
+
+      <div class="svc-grid">
+        {services.map((s) => (
+          <a class="svc" href={`/services/${s.slug}/`}>
+            <h3>{s.title}</h3>
+            <p>{s.summary}</p>
+            <p class="svc-out"><span class="svc-out-k">Measured by</span> {s.outcome}</p>
+            <span class="svc-go">Read more</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-ink">
+    <div class="wrap">
+      <span class="eyebrow">How an engagement runs</span>
+      <h2>Measure first, then spend</h2>
+      <p class="lede">
+        The order matters. Every step below has to happen before the one after it is worth paying for.
+      </p>
+
+      <ol class="steps">
+        {steps.map((s) => (
+          <li class="step">
+            <span class="step-n num">{s.n}</span>
+            <div>
+              <h3>{s.t}</h3>
+              <p set:html={s.d} />
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section section-mist">
+    <div class="wrap">
+      <span class="eyebrow">Where we already know the ground</span>
+      <h2>Trades and service businesses in the GTA</h2>
+      <p class="lede">
+        Search behaves differently in each of these. A tow truck query is decided in
+        forty seconds; a renovation is decided over six weeks. The plan is not the same.
+      </p>
+
+      <div class="ind-grid">
+        {industries.map((i) => (
+          <div class="ind">
+            <h3>{i.name}</h3>
+            <p>{i.note}</p>
+          </div>
+        ))}
+      </div>
+
+      <p class="ind-more"><a href="/industries/">How we approach each one</a></p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <span class="eyebrow">Current clients</span>
+      <h2>Who we build for</h2>
+      <p class="lede">
+        Client performance data stays private. What is public is what we built and who
+        we built it for.
+      </p>
+
+      <div class="scroll-x work-wrap">
+        <table class="work-tbl">
+          <thead>
+            <tr><th>Client</th><th>Sector</th><th>Area</th><th>What we built</th></tr>
+          </thead>
+          <tbody>
+            {work.map((w) => (
+              <tr>
+                <th scope="row">{w.name}</th>
+                <td>{w.sector}</td>
+                <td>{w.place}</td>
+                <td>{w.built}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="ind-more"><a href="/work/">More about the work</a></p>
+    </div>
+  </section>
+
+  <FAQ items={faqs} />
+
+  <CTA />
+</Base>
+
+<style>
+  .hero {
+    background:
+      radial-gradient(1100px 520px at 78% -10%, rgba(56, 189, 248, 0.16), transparent 62%),
+      radial-gradient(700px 420px at 8% 110%, rgba(22, 163, 74, 0.10), transparent 60%),
+      var(--ink);
+    color: var(--fg-on-ink);
+    padding-block: var(--sp-9);
+    border-bottom: 1px solid var(--rule-dark);
+  }
+  .hero-in { display: grid; gap: var(--sp-8); align-items: center; }
+  .hero-copy .eyebrow { color: var(--brand-lite); }
+  .hero-copy .eyebrow::after { background: var(--rule-dark); }
+  /* The headline is long by design (it is the thesis, not a slogan), so it is set
+     a step down from the display maximum and given a wider measure. */
+  .hero h1 {
+    color: var(--paper);
+    font-size: var(--step-4);
+    max-width: 22ch;
+    margin-bottom: var(--sp-5);
+  }
+  .hero .lede { color: var(--fg-on-ink-muted); margin-bottom: var(--sp-6); }
+  .hero .btn-ghost { color: var(--fg-on-ink); border-color: var(--rule-dark); }
+  .hero .btn-ghost:hover { border-color: var(--brand-lite); color: #fff; }
+  .hero-fine { font-size: 0.84rem; color: var(--fg-faint); margin-top: var(--sp-4); }
+
+  @media (min-width: 1000px) {
+    .hero-in { grid-template-columns: 1.05fr 0.95fr; gap: var(--sp-7); }
+  }
+
+  .strip { border-bottom: 1px solid var(--rule); }
+  .strip-in { display: grid; gap: var(--sp-4); align-items: baseline; }
+  .strip-lead {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: var(--step-1);
+    letter-spacing: -0.02em;
+    margin: 0;
+    max-width: none;
+  }
+  .strip-list {
+    list-style: none; margin: 0; padding: 0;
+    display: flex; flex-wrap: wrap; gap: 0.4rem 0.9rem;
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    letter-spacing: 0.03em;
+    color: var(--fg-faint);
+    text-transform: uppercase;
+  }
+  .strip-list li { position: relative; padding-right: 0.9rem; }
+  .strip-list li::after {
+    content: "";
+    position: absolute; right: 0; top: 50%;
+    width: 3px; height: 3px; border-radius: 50%;
+    background: var(--rule); transform: translateY(-50%);
+  }
+  .strip-list li:last-child::after { display: none; }
+  @media (min-width: 900px) {
+    .strip-in { grid-template-columns: auto 1fr; gap: var(--sp-7); }
+    .strip-list { justify-content: flex-end; }
+  }
+
+  .svc-grid {
+    display: grid;
+    gap: var(--sp-4);
+    margin-top: var(--sp-6);
+    grid-template-columns: repeat(auto-fit, minmax(255px, 1fr));
+  }
+  .svc {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-3);
+    padding: var(--sp-5);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius-lg);
+    text-decoration: none;
+    color: inherit;
+    background: var(--paper);
+    transition: border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+  }
+  .svc:hover {
+    border-color: var(--brand);
+    box-shadow: var(--shadow-2);
+    transform: translateY(-2px);
+    color: inherit;
+  }
+  .svc h3 { margin: 0; font-size: var(--step-1); }
+  .svc p { margin: 0; color: var(--fg-muted); font-size: 0.94rem; }
+  .svc .svc-out {
+    margin-top: auto;
+    padding-top: var(--sp-3);
+    border-top: 1px solid var(--mist-2);
+    font-size: 0.86rem;
+  }
+  .svc-out-k {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--fg-faint);
+    margin-bottom: 0.2rem;
+  }
+  .svc-go {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 0.88rem;
+    color: var(--brand);
+  }
+  .svc-go::after { content: " \2192"; }
+
+  .steps { list-style: none; margin: var(--sp-7) 0 0; padding: 0; display: grid; gap: 0; }
+  .step {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--sp-5);
+    padding-block: var(--sp-5);
+    border-top: 1px solid var(--rule-dark);
+    align-items: start;
+  }
+  .step:last-child { border-bottom: 1px solid var(--rule-dark); }
+  .step-n {
+    font-size: 0.82rem;
+    color: var(--brand-lite);
+    padding-top: 0.42rem;
+    min-width: 2.2rem;
+  }
+  .step h3 { color: var(--paper); font-size: var(--step-1); margin-bottom: var(--sp-2); }
+  .step p { color: var(--fg-on-ink-muted); margin: 0; font-size: 0.96rem; }
+
+  /* Six entries, so the grid is pinned to three columns rather than letting
+     auto-fit leave a ragged final row of two. */
+  .ind-grid {
+    display: grid;
+    gap: var(--sp-4);
+    margin-top: var(--sp-6);
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+  @media (min-width: 940px) {
+    .ind-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+  /* Reference entries, not feature cards: a hairline record with the search
+     behaviour recorded underneath as a field value. */
+  .ind {
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+    padding: var(--sp-5);
+  }
+  .ind h3 { font-size: 1.02rem; margin-bottom: var(--sp-3); }
+  .ind p {
+    margin: 0;
+    padding-top: var(--sp-3);
+    border-top: 1px solid var(--mist-2);
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    line-height: 1.62;
+    letter-spacing: 0.01em;
+    color: var(--fg-faint);
+  }
+  .ind-more { margin-top: var(--sp-6); font-family: var(--font-display); font-weight: 600; }
+
+  .work-wrap { margin-top: var(--sp-6); border: 1px solid var(--rule); border-radius: var(--radius-lg); }
+  .work-tbl { border-collapse: collapse; width: 100%; min-width: 640px; font-size: 0.93rem; }
+  .work-tbl th, .work-tbl td { text-align: left; padding: 0.85rem 1rem; border-bottom: 1px solid var(--rule); }
+  .work-tbl thead th {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--fg-faint);
+    font-weight: 500;
+    background: var(--mist);
+  }
+  .work-tbl tbody th { font-family: var(--font-display); font-weight: 600; white-space: nowrap; }
+  .work-tbl td { color: var(--fg-muted); }
+  .work-tbl tbody tr:last-child th, .work-tbl tbody tr:last-child td { border-bottom: 0; }
+</style>

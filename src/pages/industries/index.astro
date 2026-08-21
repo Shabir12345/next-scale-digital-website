@@ -1,0 +1,161 @@
+---
+import Base from '../../layouts/Base.astro';
+import CTA from '../../components/CTA.astro';
+import { site } from '../../data/site';
+import { industries } from '../../data/industries';
+
+const path = '/industries/';
+const pageUrl = new URL(path, site.url).href;
+
+const breadcrumbs = [
+  { name: 'Home', href: '/' },
+  { name: 'Industries', href: path },
+];
+
+const itemList = {
+  '@type': 'ItemList',
+  '@id': `${pageUrl}#industries`,
+  itemListElement: industries.map((i, idx) => ({
+    '@type': 'ListItem',
+    position: idx + 1,
+    name: i.nav,
+    url: new URL(`/industries/${i.slug}/`, site.url).href,
+  })),
+};
+---
+
+<Base
+  title="Industries We Work In | GTA Service Businesses | Next Scale Digital"
+  description="How search behaves differently for towing, collision repair, tire shops and renovation contractors in the GTA, and what that changes about where the marketing budget should go."
+  path={path}
+  breadcrumbs={breadcrumbs}
+  schema={[itemList]}
+>
+  <section class="phero">
+    <div class="wrap">
+      <nav class="crumbs" aria-label="Breadcrumb">
+        <ol>
+          <li><a href="/">Home</a></li>
+          <li><span aria-current="page">Industries</span></li>
+        </ol>
+      </nav>
+      <span class="eyebrow">Industries</span>
+      <h1>The plan is not the same for every trade</h1>
+      <p class="lede">
+        A tow truck search is decided in forty seconds on a phone at the roadside.
+        A kitchen renovation is decided over six weeks from photographs. Both are
+        local service businesses, and almost nothing about their marketing should match.
+      </p>
+      <p class="lede">
+        These are the categories we have already built and ranked for.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="ind-list">
+        {industries.map((i) => (
+          <article class="ind-row">
+            <div class="ind-main">
+              <h2><a href={`/industries/${i.slug}/`}>{i.nav}</a></h2>
+              <p class="ind-sum">{i.summary}</p>
+              <p class="ind-thesis">{i.thesis}</p>
+              <a class="ind-go" href={`/industries/${i.slug}/`}>How we approach it</a>
+            </div>
+            <dl class="ind-facts">
+              {i.behaviour.slice(0, 3).map((b) => (
+                <div>
+                  <dt>{b.label}</dt>
+                  <dd>{b.value}</dd>
+                </div>
+              ))}
+            </dl>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-mist">
+    <div class="wrap-tight">
+      <span class="eyebrow">Not listed</span>
+      <h2>If your category is not here</h2>
+      <p>
+        We have also built for event and wedding services, short-term rentals and
+        e-commerce. The categories above are the ones with enough repeat delivery
+        behind them to write a page about honestly.
+      </p>
+      <p>
+        The method transfers: measure where you rank across the area you serve, work
+        out which terms are reachable at your current authority, and fix the free
+        things before spending on the expensive ones. Ask and we will tell you
+        whether your category is one we can help with.
+      </p>
+    </div>
+  </section>
+
+  <CTA />
+</Base>
+
+<style>
+  .phero { background: var(--ink); color: var(--fg-on-ink); padding-block: var(--sp-6) var(--sp-8); }
+  .phero .eyebrow { color: var(--brand-lite); }
+  .phero .eyebrow::after { background: var(--rule-dark); }
+  .phero h1 { color: var(--paper); font-size: var(--step-4); max-width: 18ch; }
+  .phero .lede { color: var(--fg-on-ink-muted); }
+  .phero .lede + .lede { margin-top: var(--sp-4); }
+
+  .crumbs { margin-bottom: var(--sp-6); }
+  .crumbs ol {
+    list-style: none; margin: 0; padding: 0;
+    display: flex; flex-wrap: wrap; gap: 0.5rem;
+    font-family: var(--font-mono); font-size: 0.74rem; color: var(--fg-faint);
+  }
+  .crumbs li + li::before { content: "/"; margin-right: 0.5rem; color: var(--rule-dark); }
+  .crumbs a { color: var(--fg-on-ink-muted); text-decoration: none; }
+  .crumbs a:hover { color: var(--brand-lite); }
+
+  .ind-list { display: grid; gap: 0; border-top: 1px solid var(--rule); }
+  .ind-row {
+    display: grid; gap: var(--sp-5);
+    padding-block: var(--sp-6);
+    border-bottom: 1px solid var(--rule);
+    align-items: start;
+  }
+  .ind-main h2 { font-size: var(--step-2); margin-bottom: var(--sp-2); }
+  .ind-main h2 a { color: inherit; text-decoration: none; }
+  .ind-main h2 a:hover { color: var(--brand); }
+  .ind-sum {
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    letter-spacing: 0.02em;
+    color: var(--fg-faint);
+    margin-bottom: var(--sp-4);
+  }
+  .ind-thesis { color: var(--fg-muted); margin-bottom: var(--sp-4); }
+  .ind-go { font-family: var(--font-display); font-weight: 600; font-size: 0.9rem; text-decoration: none; }
+  .ind-go::after { content: " \2192"; }
+
+  .ind-facts {
+    margin: 0;
+    background: var(--mist);
+    border: 1px solid var(--mist-2);
+    border-radius: var(--radius-lg);
+    padding: var(--sp-5);
+    display: grid; gap: var(--sp-4);
+  }
+  .ind-facts dt {
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--fg-faint);
+    margin-bottom: 0.2rem;
+  }
+  .ind-facts dd { margin: 0; font-size: 0.9rem; color: var(--fg-muted); }
+
+  @media (min-width: 900px) {
+    .ind-row { grid-template-columns: minmax(0, 1.5fr) minmax(0, 0.85fr); gap: var(--sp-7); }
+  }
+</style>

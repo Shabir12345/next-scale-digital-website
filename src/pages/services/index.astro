@@ -1,0 +1,170 @@
+---
+import Base from '../../layouts/Base.astro';
+import CTA from '../../components/CTA.astro';
+import { services, site } from '../../data/site';
+import { serviceContent } from '../../data/services-content';
+
+const path = '/services/';
+const pageUrl = new URL(path, site.url).href;
+
+const breadcrumbs = [
+  { name: 'Home', href: '/' },
+  { name: 'Services', href: path },
+];
+
+const itemList = {
+  '@type': 'ItemList',
+  '@id': `${pageUrl}#services`,
+  itemListElement: services.map((s, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: s.title,
+    url: new URL(`/services/${s.slug}/`, site.url).href,
+  })),
+};
+---
+
+<Base
+  title="Services: Local SEO, Websites, Google Ads & AI Agents | Next Scale Digital"
+  description="Four services for GTA service businesses: local SEO and map pack work, static website builds, Google Ads with a break-even model, and AI voice agents for missed calls."
+  path={path}
+  breadcrumbs={breadcrumbs}
+  schema={[itemList]}
+>
+  <section class="phero">
+    <div class="wrap">
+      <nav class="crumbs" aria-label="Breadcrumb">
+        <ol>
+          <li><a href="/">Home</a></li>
+          <li><span aria-current="page">Services</span></li>
+        </ol>
+      </nav>
+      <span class="eyebrow">Services</span>
+      <h1>Four services. Take them in the order that pays.</h1>
+      <p class="lede">
+        Nobody needs all of this at once. The right first step depends on whether your
+        problem is that people cannot find you, cannot decide once they do, or cannot
+        reach you when they try.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="list">
+        {services.map((s, i) => {
+          const c = serviceContent[s.slug];
+          return (
+            <article class="row">
+              <div class="row-n num">{String(i + 1).padStart(2, '0')}</div>
+              <div class="row-main">
+                <h2><a href={`/services/${s.slug}/`}>{s.title}</a></h2>
+                <p class="row-sum">{s.summary}</p>
+                <ul class="row-bul">
+                  {c.includes.slice(0, 4).map((inc) => <li>{inc.title}</li>)}
+                </ul>
+                <a class="row-go" href={`/services/${s.slug}/`}>Read the full page</a>
+              </div>
+              <div class="row-side">
+                <span class="row-side-k">Measured by</span>
+                <p class="row-side-v">{s.outcome}</p>
+              </div>
+            </article>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-mist">
+    <div class="wrap-tight">
+      <span class="eyebrow">Choosing</span>
+      <h2>Which one first</h2>
+      <p>
+        If people search for your service and you are not in the map results,
+        start with <a href="/services/local-seo/">local SEO</a>. It is the cheapest
+        distance between where you are and more calls, and most of the levers are free.
+      </p>
+      <p>
+        If you already rank but the site does not convert, or it takes six seconds
+        to load on a phone, start with the <a href="/services/web-design/">website</a>.
+      </p>
+      <p>
+        If you need work booked this month and the numbers clear break-even, start with
+        <a href="/services/google-ads/"> Google Ads</a>. It is the only one of the four
+        that can produce a call the same day.
+      </p>
+      <p>
+        If the calls already come and get missed, none of the above is your problem.
+        Start with an <a href="/services/ai-voice-agents/">AI voice agent</a>.
+      </p>
+    </div>
+  </section>
+
+  <CTA />
+</Base>
+
+<style>
+  .phero { background: var(--ink); color: var(--fg-on-ink); padding-block: var(--sp-6) var(--sp-8); }
+  .phero .eyebrow { color: var(--brand-lite); }
+  .phero .eyebrow::after { background: var(--rule-dark); }
+  .phero h1 { color: var(--paper); font-size: var(--step-4); max-width: 20ch; }
+  .phero .lede { color: var(--fg-on-ink-muted); }
+
+  .crumbs { margin-bottom: var(--sp-6); }
+  .crumbs ol {
+    list-style: none; margin: 0; padding: 0;
+    display: flex; flex-wrap: wrap; gap: 0.5rem;
+    font-family: var(--font-mono); font-size: 0.74rem; color: var(--fg-faint);
+  }
+  .crumbs li + li::before { content: "/"; margin-right: 0.5rem; color: var(--rule-dark); }
+  .crumbs a { color: var(--fg-on-ink-muted); text-decoration: none; }
+  .crumbs a:hover { color: var(--brand-lite); }
+
+  .list { display: grid; gap: 0; border-top: 1px solid var(--rule); }
+  .row {
+    display: grid;
+    gap: var(--sp-4);
+    padding-block: var(--sp-6);
+    border-bottom: 1px solid var(--rule);
+    align-items: start;
+  }
+  .row-n { font-size: 0.8rem; color: var(--fg-faint); padding-top: 0.4rem; }
+  .row-main h2 { font-size: var(--step-2); margin-bottom: var(--sp-3); }
+  .row-main h2 a { color: inherit; text-decoration: none; }
+  .row-main h2 a:hover { color: var(--brand); }
+  .row-sum { color: var(--fg-muted); margin-bottom: var(--sp-4); }
+  .row-bul {
+    list-style: none; margin: 0 0 var(--sp-4); padding: 0;
+    display: flex; flex-wrap: wrap; gap: 0.4rem 0.5rem;
+  }
+  .row-bul li {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.02em;
+    color: var(--fg-muted);
+    background: var(--mist);
+    border: 1px solid var(--mist-2);
+    border-radius: 100px;
+    padding: 0.25rem 0.7rem;
+  }
+  .row-go { font-family: var(--font-display); font-weight: 600; font-size: 0.9rem; text-decoration: none; }
+  .row-go::after { content: " \2192"; }
+
+  .row-side { border-left: 0; }
+  .row-side-k {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.67rem;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--fg-faint);
+    margin-bottom: 0.35rem;
+  }
+  .row-side-v { margin: 0; font-size: 0.9rem; color: var(--fg-muted); }
+
+  @media (min-width: 900px) {
+    .row { grid-template-columns: auto minmax(0, 1.6fr) minmax(0, 0.8fr); gap: var(--sp-6); }
+    .row-n { min-width: 2.2rem; }
+  }
+</style>
