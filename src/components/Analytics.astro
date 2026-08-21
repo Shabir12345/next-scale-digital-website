@@ -1,0 +1,84 @@
+---
+/* Analytics and conversion tracking.
+
+   Nothing loads until GA4_ID is set. Paste the G-XXXXXXXXXX measurement ID from
+   the GA4 property into src/data/site.ts and this starts reporting; leave it
+   empty and the site ships zero third-party script.
+
+   The events below are the ones that matter for this business. Pageviews on
+   their own do not tell you whether the site produced work.
+
+     audit_request   a contact form submission          <- the conversion
+     contact_click   a tel: or mailto: link tapped      <- the other conversion
+     cta_click       any button into /contact/          <- funnel step
+     scroll_75       reached 75% of a page              <- engagement, per page
+
+   IP anonymisation is on and ad personalisation signals are off, so this stays
+   on the right side of the privacy policy. */
+import { site } from '../data/site';
+
+const id = site.ga4Id;
+---
+
+{id && (
+  <>
+    <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${id}`}></script>
+    <script is:inline define:vars={{ id }}>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { window.dataLayer.push(arguments); }
+      window.gtag = gtag;
+      gtag('js', new Date());
+      gtag('config', id, {
+        anonymize_ip: true,
+        allow_google_signals: false,
+        allow_ad_personalization_signals: false,
+      });
+    </script>
+  </>
+)}
+
+<script>
+  /* These fire regardless of whether GA4 is configured. track() no-ops when
+     gtag is absent, so wiring a different analytics tool later means changing
+     one function rather than hunting listeners. */
+  const track = (name: string, params: Record<string, unknown> = {}) => {
+    const g = (window as any).gtag;
+    if (typeof g === 'function') g('event', name, params);
+  };
+
+  document.addEventListener('click', (e) => {
+    const el = (e.target as HTMLElement)?.closest?.('a') as HTMLAnchorElement | null;
+    if (!el) return;
+    const href = el.getAttribute('href') ?? '';
+
+    if (href.startsWith('tel:')) {
+      track('contact_click', { method: 'phone', value: href.replace('tel:', '') });
+    } else if (href.startsWith('mailto:')) {
+      track('contact_click', { method: 'email' });
+    } else if (href.includes('/contact/')) {
+      track('cta_click', {
+        label: (el.textContent ?? '').trim().slice(0, 60),
+        from: window.location.pathname,
+      });
+    }
+  });
+
+  document.getElementById('auditForm')?.addEventListener('submit', () => {
+    const svc = (document.getElementById('service') as HTMLSelectElement | null)?.value;
+    track('audit_request', { service: svc || 'unspecified' });
+  });
+
+  /* One scroll_75 per page load, not per scroll event. */
+  let deep = false;
+  const onScroll = () => {
+    if (deep) return;
+    const seen = window.scrollY + window.innerHeight;
+    const total = document.documentElement.scrollHeight;
+    if (total > 0 && seen / total >= 0.75) {
+      deep = true;
+      track('scroll_75', { page: window.location.pathname });
+      window.removeEventListener('scroll', onScroll);
+    }
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+</script>

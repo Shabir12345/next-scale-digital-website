@@ -10,7 +10,8 @@
     "check": "astro check",
     "og": "node scripts/make-og.mjs",
     "qa": "node scripts/qa.mjs",
-    "verify": "npm run og && npm run build && npm run qa"
+    "verify": "npm run og && npm run build && npm run qa",
+    "fonts": "node scripts/fetch-fonts.mjs"
   },
   "dependencies": {
     "astro": "^5.13.2",

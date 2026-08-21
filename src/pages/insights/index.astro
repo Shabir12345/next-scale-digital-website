@@ -16,8 +16,13 @@ const breadcrumbs = [
   { name: 'Insights', href: path },
 ];
 
+/* Frontmatter dates are bare YYYY-MM-DD, which parse as UTC midnight. Rendering
+   them in the local zone shifts them a day back west of Greenwich, so the
+   formatter is pinned to UTC. */
 const fmt = (d: Date) =>
-  d.toLocaleDateString('en-CA', { year: 'numeric', month: 'long', day: 'numeric' });
+  d.toLocaleDateString('en-CA', {
+    year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC',
+  });
 
 const blog = {
   '@type': 'Blog',

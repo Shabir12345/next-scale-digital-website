@@ -13,6 +13,10 @@ export const site = {
   // Add it here and it flows into schema, header, footer and the contact page.
   phone: '',
   foundingYear: 2024,
+  // TODO(shabir): paste the GA4 measurement ID (G-XXXXXXXXXX) here. Until it is
+  // set, no analytics script loads at all and the site ships zero third-party JS
+  // beyond the font stylesheet.
+  ga4Id: '',
   city: 'Aurora',
   region: 'ON',
   regionName: 'Ontario',
