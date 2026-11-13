@@ -195,6 +195,17 @@ hr { border: 0; border-top: 1px solid var(--rule); margin: var(--sp-7) 0; }
 .section-ink .btn-ghost { color: var(--fg-on-ink); border-color: var(--rule-dark); }
 .section-ink .btn-ghost:hover { border-color: var(--brand-lite); color: #fff; }
 
+/* "or call ..." beside a primary button on dark page heroes */
+.call-link {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.02rem;
+  color: var(--paper);
+  text-decoration: none;
+}
+.call-link .num { border-bottom: 1px solid var(--brand-lite); }
+.call-link:hover { color: var(--brand-lite); }
+
 .btn-row { display: flex; flex-wrap: wrap; gap: var(--sp-4); align-items: center; }
 
 .grid { display: grid; gap: var(--sp-5); }

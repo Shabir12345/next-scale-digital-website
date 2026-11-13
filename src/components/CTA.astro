@@ -1,4 +1,5 @@
 ---
+import { site, telHref } from '../data/site';
 export interface Props {
   heading?: string;
   body?: string;
@@ -20,6 +21,9 @@ const {
     </div>
     <div class="cta-act">
       <a href={href} class="btn btn-primary">{action}</a>
+      {telHref && (
+        <a href={telHref} class="cta-call">or call <span class="num">{site.phone}</span></a>
+      )}
       <p class="cta-note">Usually back within two business days.</p>
     </div>
   </div>
@@ -31,6 +35,9 @@ const {
   .cta-in h2 { color: var(--paper); font-size: var(--step-3); margin-bottom: var(--sp-3); }
   .cta-in .lede { color: var(--fg-on-ink-muted); font-size: var(--step-0); }
   .cta-act { display: grid; gap: var(--sp-3); justify-items: start; }
+  .cta-call { color: var(--paper); text-decoration: none; font-family: var(--font-display); font-weight: 600; font-size: 1.05rem; }
+  .cta-call .num { border-bottom: 1px solid var(--brand-lite); }
+  .cta-call:hover { color: var(--brand-lite); }
   .cta-note { font-size: 0.84rem; color: var(--fg-faint); margin: 0; }
   @media (min-width: 860px) {
     .cta-in { grid-template-columns: 1.5fr auto; gap: var(--sp-8); }

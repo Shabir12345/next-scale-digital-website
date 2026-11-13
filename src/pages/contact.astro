@@ -1,6 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
-import { site, services, serviceAreas } from '../data/site';
+import { site, services, serviceAreas, telHref } from '../data/site';
 import { faqSchema } from '../lib/schema';
 
 const path = '/contact/';
@@ -58,6 +58,11 @@ const faqs = [
         and what the businesses ranking above you have that you do not. You keep the
         report either way.
       </p>
+      {telHref && (
+        <p class="phero-call">
+          Rather talk it through? Call <a href={telHref} class="num">{site.phone}</a>
+        </p>
+      )}
     </div>
   </section>
 
@@ -127,9 +132,12 @@ const faqs = [
       <aside class="aside">
         <div class="aside-card">
           <span class="aside-k">Or reach us directly</span>
+          {telHref && (
+            <p class="aside-v aside-phone"><a href={telHref} class="num">{site.phone}</a></p>
+          )}
           <p class="aside-v"><a href={`mailto:${site.email}`}>{site.email}</a></p>
-          {site.phone && (
-            <p class="aside-v"><a href={`tel:${site.phone.replace(/[^+\d]/g, '')}`}>{site.phone}</a></p>
+          {site.bookingUrl && (
+            <p class="aside-v"><a href={site.bookingUrl} target="_blank" rel="noopener">Book a 15-minute call</a></p>
           )}
           <p class="aside-sub">Based in {site.city}, {site.regionName}. Replies weekdays.</p>
         </div>
@@ -231,6 +239,9 @@ const faqs = [
   .phero .eyebrow::after { background: var(--rule-dark); }
   .phero h1 { color: var(--paper); font-size: var(--step-4); max-width: 18ch; }
   .phero .lede { color: var(--fg-on-ink-muted); }
+  .phero-call { margin: var(--sp-5) 0 0; color: var(--fg-on-ink-muted); font-size: var(--step-0); }
+  .phero-call a { color: var(--paper); font-weight: 600; text-decoration: none; border-bottom: 1px solid var(--brand-lite); }
+  .phero-call a:hover { color: var(--brand-lite); }
 
   .crumbs { margin-bottom: var(--sp-6); }
   .crumbs ol {
@@ -309,6 +320,7 @@ const faqs = [
   }
   .aside-v { margin: 0 0 0.25rem; font-family: var(--font-display); font-weight: 600; font-size: 1rem; }
   .aside-v a { text-decoration: none; }
+  .aside-phone { font-size: 1.35rem; }
   .aside-v a:hover { text-decoration: underline; }
   .aside-sub { font-size: 0.84rem; color: var(--fg-muted); margin: var(--sp-3) 0 0; line-height: 1.7; }
   .aside-list { margin: 0; padding-left: 1.1rem; display: grid; gap: 0.45rem; font-size: 0.87rem; color: var(--fg-muted); }

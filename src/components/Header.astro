@@ -1,5 +1,5 @@
 ---
-import { nav, site } from '../data/site';
+import { nav, site, telHref } from '../data/site';
 import Logo from './Logo.astro';
 const path = Astro.url.pathname;
 const isActive = (href: string) => path === href || (href !== '/' && path.startsWith(href));
@@ -20,6 +20,13 @@ const isActive = (href: string) => path === href || (href !== '/' && path.starts
       ))}
     </nav>
 
+    {telHref && (
+      <a href={telHref} class="hdr-phone" aria-label={`Call ${site.phone}`}>
+        <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z"/></svg>
+        <span class="num">{site.phone}</span>
+      </a>
+    )}
+
     <a href="/contact/" class="btn btn-primary hdr-cta">Get a free audit</a>
 
     <button class="hdr-toggle" id="navToggle" aria-expanded="false" aria-controls="mobileNav">
@@ -32,6 +39,7 @@ const isActive = (href: string) => path === href || (href !== '/' && path.starts
   <div class="hdr-mobile" id="mobileNav" hidden>
     <div class="wrap">
       {nav.map((item) => <a href={item.href}>{item.label}</a>)}
+      {telHref && <a href={telHref} class="hdr-mcall">Call <span class="num">{site.phone}</span></a>}
       <a href="/contact/" class="btn btn-primary">Get a free audit</a>
     </div>
   </div>
@@ -82,6 +90,21 @@ const isActive = (href: string) => path === href || (href !== '/' && path.starts
   .hdr-link:hover { color: var(--fg); }
   .hdr-link.on { color: var(--fg); border-bottom-color: var(--brand); }
 
+  .hdr-phone {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 0.92rem;
+    color: var(--fg);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .hdr-phone svg { color: var(--brand); }
+  .hdr-phone:hover { color: var(--brand); }
+  .hdr-mobile a.hdr-mcall { font-weight: 600; color: var(--brand); }
+
   .hdr-cta { padding: 0.6rem 1.05rem; font-size: 0.9rem; }
 
   .hdr-toggle {
@@ -110,6 +133,14 @@ const isActive = (href: string) => path === href || (href !== '/' && path.starts
   }
   .hdr-mobile .btn { justify-content: center; margin-top: var(--sp-3); border-bottom: 0; color: #fff; }
 
+  /* Nav plus phone plus CTA is too wide below ~1100px: keep the icon, drop the digits. */
+  @media (max-width: 1120px) {
+    .hdr-phone .num { display: none; }
+    .hdr-phone {
+      width: 38px; height: 38px; justify-content: center;
+      border: 1px solid var(--rule); border-radius: var(--radius);
+    }
+  }
   @media (max-width: 900px) {
     .hdr-nav, .hdr-cta { display: none; }
     .hdr-toggle { display: flex; }

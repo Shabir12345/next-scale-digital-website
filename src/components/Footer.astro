@@ -1,5 +1,5 @@
 ---
-import { site, services, nav, serviceAreas } from '../data/site';
+import { site, services, nav, serviceAreas, telHref } from '../data/site';
 import Logo from './Logo.astro';
 const year = new Date().getFullYear();
 ---
@@ -16,8 +16,8 @@ const year = new Date().getFullYear();
         and York Region. Based in {site.city}, {site.region}.
       </p>
       <p class="ftr-contact">
+        {telHref && <><a href={telHref} class="ftr-phone num">{site.phone}</a><br /></>}
         <a href={`mailto:${site.email}`}>{site.email}</a>
-        {site.phone && <><br /><a href={`tel:${site.phone.replace(/[^+\d]/g, '')}`}>{site.phone}</a></>}
       </p>
     </div>
 
@@ -78,6 +78,7 @@ const year = new Date().getFullYear();
   .ftr-blurb { max-width: 34ch; margin-bottom: var(--sp-4); }
   .ftr-contact a { color: var(--brand-lite); text-decoration: none; }
   .ftr-contact a:hover { text-decoration: underline; }
+  .ftr-contact .ftr-phone { color: var(--paper); font-size: 1.1rem; font-weight: 500; }
 
   .ftr-col h2 {
     font-family: var(--font-mono);

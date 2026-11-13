@@ -10,10 +10,12 @@ export const site = {
   url: 'https://www.nextscaledigital.com',
   tagline: 'Search marketing for GTA service businesses',
   email: 'hello@nextscaledigital.com',
-  // TODO(shabir): no public phone number exists yet. A local business without one
-  // loses local-pack calls and cannot complete a Google Business Profile properly.
-  // Add it here and it flows into schema, header, footer and the contact page.
-  phone: '',
+  // Shabir's line, from the NSD business card. It flows into schema, the header,
+  // the mobile call bar, every CTA band, the footer and the contact page.
+  phone: '437-237-8904',
+  // Optional scheduling page (Calendly or similar) for a short discovery call.
+  // Leave empty and every "book a call" button falls back to the audit form.
+  bookingUrl: '',
   foundingYear: 2024,
   // TODO(shabir): paste the GA4 measurement ID (G-XXXXXXXXXX) here. Until it is
   // set, no analytics script loads at all and the site ships zero third-party JS
@@ -31,6 +33,12 @@ export const site = {
     linkedin: 'https://www.linkedin.com/company/next-scale-digital',
   },
 };
+
+/** tel: href in E.164 so it dials correctly from any phone. Empty if no number. */
+export const telHref = site.phone ? `tel:+1${site.phone.replace(/\D/g, '').replace(/^1(?=\d{10}$)/, '')}` : '';
+
+/** Where "book" buttons go: the scheduling page if one is set, otherwise the audit form. */
+export const bookHref = site.bookingUrl || '/contact/';
 
 export const serviceAreas = [
   'Aurora', 'Newmarket', 'Richmond Hill', 'Markham', 'Vaughan', 'Toronto',
