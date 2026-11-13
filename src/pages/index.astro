@@ -77,34 +77,33 @@ const steps = [
   schema={[faqSchema(faqs, pageUrl)]}
 >
   <section class="hero">
+    <div class="hero-bg" aria-hidden="true"></div>
     <div class="wrap hero-in">
       <div class="hero-copy">
-        <span class="eyebrow">Local search &middot; Toronto &amp; York Region</span>
-        <h1>You don&rsquo;t have one Google ranking. You have a different one for every corner of your service area.</h1>
+        <span class="hero-tag"><span class="hero-tag-dot" aria-hidden="true"></span>Toronto &amp; York Region</span>
+        <h1>Be the first call in <span class="hero-hl">every neighbourhood</span> you serve.</h1>
         <p class="lede">
-          Next Scale Digital builds and ranks websites for service businesses across the GTA.
-          We measure your map position from every neighbourhood you cover, then fix what is
-          keeping you out of the three results that get the calls.
+          Websites, local SEO and Google Ads for service businesses across the GTA.
         </p>
         <div class="btn-row">
-          <a href="/contact/" class="btn btn-primary">Get a free audit</a>
+          <a href="/contact/" class="btn btn-primary hero-cta">Get a free audit</a>
           <a href="/work/" class="btn btn-ghost">See the work</a>
         </div>
-        <p class="hero-fine">Free, no obligation, and you keep the report.</p>
+        <ul class="hero-proof">
+          <li>Free map-pack audit</li>
+          <li>No long contracts</li>
+          <li>You own everything</li>
+        </ul>
       </div>
 
       <div class="hero-fig">
         <GeoGrid />
       </div>
     </div>
-  </section>
 
-  <section class="section-sm strip">
-    <div class="wrap strip-in">
-      <p class="strip-lead">
-        A small GTA agency working with seven service businesses, nine sites shipped.
-      </p>
-      <ul class="strip-list">
+    <div class="wrap hero-trust">
+      <p class="hero-trust-lead">Trusted by service businesses across the GTA</p>
+      <ul class="hero-trust-list">
         <li>Roadside &amp; towing</li>
         <li>Collision repair</li>
         <li>Tire service</li>
@@ -217,64 +216,148 @@ const steps = [
 
 <style>
   .hero {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
     background:
-      radial-gradient(1100px 520px at 78% -10%, rgba(56, 189, 248, 0.16), transparent 62%),
-      radial-gradient(700px 420px at 8% 110%, rgba(22, 163, 74, 0.10), transparent 60%),
+      radial-gradient(900px 520px at 85% 0%, rgba(56, 189, 248, 0.18), transparent 60%),
+      radial-gradient(760px 460px at 0% 100%, rgba(29, 78, 216, 0.22), transparent 62%),
       var(--ink);
     color: var(--fg-on-ink);
-    padding-block: var(--sp-9);
+    padding-block: var(--sp-7) 0;
     border-bottom: 1px solid var(--rule-dark);
   }
+  /* A faint survey grid behind the copy: it echoes the geo-grid on the right and
+     gives the dark ground some texture without competing with the headline. */
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-image:
+      linear-gradient(rgba(147, 166, 194, 0.07) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(147, 166, 194, 0.07) 1px, transparent 1px);
+    background-size: 56px 56px;
+    mask-image: radial-gradient(ellipse 70% 70% at 60% 35%, #000 20%, transparent 75%);
+    -webkit-mask-image: radial-gradient(ellipse 70% 70% at 60% 35%, #000 20%, transparent 75%);
+  }
   .hero-in { display: grid; gap: var(--sp-8); align-items: center; }
-  .hero-copy .eyebrow { color: var(--brand-lite); }
-  .hero-copy .eyebrow::after { background: var(--rule-dark); }
-  /* The headline is long by design (it is the thesis, not a slogan), so it is set
-     a step down from the display maximum and given a wider measure. */
+
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.38rem 0.85rem 0.38rem 0.7rem;
+    margin-bottom: var(--sp-5);
+    border: 1px solid var(--rule-dark);
+    border-radius: 999px;
+    background: rgba(18, 32, 58, 0.7);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--fg-on-ink-muted);
+  }
+  .hero-tag-dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--signal-lite);
+    box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.18);
+  }
+
   .hero h1 {
     color: var(--paper);
-    font-size: var(--step-4);
-    max-width: 22ch;
+    font-size: clamp(2.4rem, 1.5rem + 3.2vw, 4.1rem);
+    max-width: 18ch;
     margin-bottom: var(--sp-5);
   }
-  .hero .lede { color: var(--fg-on-ink-muted); margin-bottom: var(--sp-6); }
+  .hero-hl {
+    background: linear-gradient(92deg, var(--brand-lite) 0%, #6EE7A0 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .hero .lede {
+    color: var(--fg-on-ink-muted);
+    font-size: var(--step-1);
+    max-width: 34ch;
+    margin-bottom: var(--sp-6);
+  }
+  .hero-cta { box-shadow: 0 8px 28px rgba(29, 78, 216, 0.45); }
   .hero .btn-ghost { color: var(--fg-on-ink); border-color: var(--rule-dark); }
   .hero .btn-ghost:hover { border-color: var(--brand-lite); color: #fff; }
-  .hero-fine { font-size: 0.84rem; color: var(--fg-faint); margin-top: var(--sp-4); }
 
-  @media (min-width: 1000px) {
-    .hero-in { grid-template-columns: 1.05fr 0.95fr; gap: var(--sp-7); }
+  .hero-proof {
+    list-style: none;
+    margin: var(--sp-6) 0 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.4rem;
+    font-size: 0.88rem;
+    color: var(--fg-on-ink-muted);
+  }
+  .hero-proof li { display: inline-flex; align-items: center; gap: 0.45rem; }
+  .hero-proof li::before {
+    content: "";
+    width: 14px; height: 14px; flex: none;
+    border-radius: 50%;
+    background:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4.5 8.3l2.2 2.2 4.8-5' fill='none' stroke='%2322C55E' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 100% no-repeat,
+      rgba(34, 197, 94, 0.14);
   }
 
-  .strip { border-bottom: 1px solid var(--rule); }
-  .strip-in { display: grid; gap: var(--sp-4); align-items: baseline; }
-  .strip-lead {
-    font-family: var(--font-display);
-    font-weight: 600;
-    font-size: var(--step-1);
-    letter-spacing: -0.02em;
+  .hero-fig { position: relative; }
+  .hero-fig::before {
+    content: "";
+    position: absolute;
+    inset: 10% 6%;
+    z-index: -1;
+    background: radial-gradient(closest-side, rgba(56, 189, 248, 0.28), transparent);
+    filter: blur(40px);
+  }
+  .hero-fig :global(.geo) {
+    box-shadow: 0 30px 80px -20px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  }
+
+  .hero-trust {
+    display: grid;
+    gap: var(--sp-3);
+    margin-top: var(--sp-8);
+    padding-block: var(--sp-5);
+    border-top: 1px solid var(--rule-dark);
+    align-items: center;
+  }
+  .hero-trust-lead {
     margin: 0;
     max-width: none;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 0.98rem;
+    color: var(--fg-on-ink);
   }
-  .strip-list {
+  .hero-trust-list {
     list-style: none; margin: 0; padding: 0;
     display: flex; flex-wrap: wrap; gap: 0.4rem 0.9rem;
     font-family: var(--font-mono);
-    font-size: 0.76rem;
-    letter-spacing: 0.03em;
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
     color: var(--fg-faint);
     text-transform: uppercase;
   }
-  .strip-list li { position: relative; padding-right: 0.9rem; }
-  .strip-list li::after {
+  .hero-trust-list li { position: relative; padding-right: 0.9rem; }
+  .hero-trust-list li::after {
     content: "";
     position: absolute; right: 0; top: 50%;
     width: 3px; height: 3px; border-radius: 50%;
-    background: var(--rule); transform: translateY(-50%);
+    background: var(--rule-dark); transform: translateY(-50%);
   }
-  .strip-list li:last-child::after { display: none; }
-  @media (min-width: 900px) {
-    .strip-in { grid-template-columns: auto 1fr; gap: var(--sp-7); }
-    .strip-list { justify-content: flex-end; }
+  .hero-trust-list li:last-child::after { display: none; }
+
+  @media (min-width: 1000px) {
+    .hero { padding-top: var(--sp-9); }
+    .hero-in { grid-template-columns: 1.05fr 0.95fr; gap: var(--sp-8); }
+    .hero-trust { grid-template-columns: auto 1fr; gap: var(--sp-7); }
+    .hero-trust-list { justify-content: flex-end; }
   }
 
   .svc-grid {
