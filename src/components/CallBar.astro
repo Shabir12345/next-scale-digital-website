@@ -1,0 +1,52 @@
+---
+import { site, telHref } from '../data/site';
+/* Phone-width only: a fixed bar so calling or requesting the audit is always one
+   tap away, whatever the visitor has scrolled to. Hidden on the contact page,
+   where the form itself is the call to action. */
+const onContact = Astro.url.pathname.startsWith('/contact');
+---
+{telHref && !onContact && (
+  <div class="callbar" role="region" aria-label="Contact us">
+    <a href={telHref} class="callbar-btn callbar-call">
+      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z"/></svg>
+      Call now
+    </a>
+    <a href="/contact/" class="callbar-btn callbar-audit">Free audit</a>
+  </div>
+)}
+
+<style>
+  .callbar { display: none; }
+  @media (max-width: 900px) {
+    .callbar {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--sp-3);
+      position: fixed;
+      left: 0; right: 0; bottom: 0;
+      z-index: 70;
+      padding: 0.6rem 1rem calc(0.6rem + env(safe-area-inset-bottom));
+      background: rgba(10, 22, 40, 0.96);
+      backdrop-filter: blur(8px);
+      border-top: 1px solid var(--rule-dark);
+    }
+    /* keep the footer's last line clear of the bar */
+    :global(body) { padding-bottom: calc(68px + env(safe-area-inset-bottom)); }
+  }
+  .callbar-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    min-height: 46px;
+    border-radius: var(--radius);
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 0.98rem;
+    text-decoration: none;
+  }
+  .callbar-call { background: var(--signal); color: #fff; }
+  .callbar-call:hover { color: #fff; }
+  .callbar-audit { background: var(--brand); color: #fff; }
+  .callbar-audit:hover { color: #fff; }
+</style>

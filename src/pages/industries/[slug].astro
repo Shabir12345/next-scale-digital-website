@@ -2,7 +2,7 @@
 import Base from '../../layouts/Base.astro';
 import CTA from '../../components/CTA.astro';
 import FAQ from '../../components/FAQ.astro';
-import { site, services } from '../../data/site';
+import { site, services, telHref } from '../../data/site';
 import { industries } from '../../data/industries';
 import { faqSchema } from '../../lib/schema';
 
@@ -45,6 +45,7 @@ const breadcrumbs = [
       <p class="lede">{industry.thesis}</p>
       <div class="btn-row">
         <a href="/contact/" class="btn btn-primary">Get a free audit</a>
+        {telHref && <a href={telHref} class="call-link">or call <span class="num">{site.phone}</span></a>}
       </div>
     </div>
   </section>

@@ -2,7 +2,7 @@
 import Base from '../../layouts/Base.astro';
 import CTA from '../../components/CTA.astro';
 import FAQ from '../../components/FAQ.astro';
-import { services, site } from '../../data/site';
+import { services, site, telHref } from '../../data/site';
 import { serviceContent } from '../../data/services-content';
 import { faqSchema, serviceSchema } from '../../lib/schema';
 
@@ -58,6 +58,7 @@ const breadcrumbs = [
           <p class="lede">{content.intro}</p>
           <div class="btn-row">
             <a href="/contact/" class="btn btn-primary">Get a free audit</a>
+            {telHref && <a href={telHref} class="call-link">or call <span class="num">{site.phone}</span></a>}
           </div>
         </div>
         <aside class="phero-side">
